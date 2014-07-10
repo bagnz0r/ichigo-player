@@ -1,0 +1,14 @@
+{
+	"name": "ichigo",
+	"main": "index.html",
+	"version": "0.1",
+	"single-instance": true,
+	"window": {
+		"title": "Ichigo v0.10",
+		"width": 920,
+		"height": 600,
+		"min_width": 920,
+		"min_height": 600,
+		"toolbar": false
+	}
+}

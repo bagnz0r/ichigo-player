@@ -1,0 +1,43 @@
+.ui-slider-handle {
+  background: #fff !important;
+  background-image: none !important;
+  border: 1px solid #ddd !important;
+  border-radius: 3px !important;
+  width: 8px !important;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+  outline: none !important;
+}
+.ui-slider-handle:hover {
+  background: #ddd !important;
+  border-color: #bbb;
+  outline: none !important;
+}
+.ui-slider-handle:active {
+  background: #aaa !important;
+  outline: none !important;
+}
+
+.ui-slider {
+  border: 1px solid #ddd !important;
+  border-radius: 3px !important;
+}
+
+.ui-dialog {
+  border-radius: 3px !important;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.25);
+}
+
+.ui-dialog-titlebar {
+  display: none;
+}

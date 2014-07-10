@@ -1,0 +1,323 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url(../fonts/open-sans/OpenSans-Regular.ttf);
+}
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url(../fonts/open-sans/OpenSans-Light.ttf);
+}
+.hidden {
+  display: none;
+}
+
+.grid25 {
+  width: 25%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.grid30 {
+  width: 30%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.grid35 {
+  width: 35%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.grid50 {
+  width: 50%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.grid60 {
+  width: 60%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.grid65 {
+  width: 65%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.grid70 {
+  width: 70%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.grid75 {
+  width: 75%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.grid100 {
+  width: 100%;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-family: 'Open Sans';
+  font-size: 12px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+
+html, body, #wrap, div.view-container, div.view {
+  height: 100%;
+}
+
+div.clear {
+  clear: both;
+}
+
+a {
+  color: #24cdee;
+}
+a:hover {
+  text-decoration: none;
+}
+
+#about-dialog h1 {
+  font-family: 'Open Sans Light';
+  font-size: 40px;
+  margin: 2px 0;
+  padding: 0;
+}
+#about-dialog span {
+  font-family: 'Open Sans Light';
+  display: block;
+  font-size: 12px;
+}
+#about-dialog span.ver {
+  color: #aaa;
+  font-size: 14px;
+}
+#about-dialog button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+#about-dialog div {
+  margin: 16px 0;
+}
+#about-dialog div span {
+  font-size: 14px;
+  font-weight: bold;
+}
+#about-dialog div ul {
+  margin: 2px 0;
+  padding-left: 20px;
+}
+#about-dialog div ul li {
+  margin: 2px 0;
+  padding: 0;
+}
+#about-dialog a {
+  color: #24cdee;
+}
+#about-dialog a:hover {
+  text-decoration: none;
+}
+
+button, a.button {
+  background: #fff;
+  color: #888;
+  margin: 0;
+  padding: 4px 8px;
+  display: block;
+  outline: none !important;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+button:hover, a.button:hover {
+  background: #ddd;
+  color: #666;
+  border-color: #bbb;
+}
+button:active, a.button:active {
+  background: #aaa;
+  color: #fff;
+}
+
+div.playback-controls {
+  margin: 0;
+  padding: 8px;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ddd;
+}
+div.playback-controls a {
+  color: #bbb;
+  margin: 0;
+  padding: 4px 8px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+div.playback-controls a:hover {
+  background: #ddd;
+  color: #666;
+  border-color: #bbb;
+}
+div.playback-controls a:active {
+  background: #aaa;
+  color: #fff;
+}
+div.playback-controls div.track-info {
+  font-family: 'Open Sans Light';
+  font-size: 15px;
+  display: inline-block;
+  margin: 0 8px;
+}
+div.playback-controls #volume-control {
+  float: right;
+  width: 100px;
+  margin-top: 8px;
+}
+div.playback-controls div.track-scroll {
+  margin: 4px 0;
+  padding: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+div.playback-controls div.track-scroll div {
+  width: 100%;
+}
+
+aside.library {
+  margin: 0;
+  padding: 8px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  width: 25%;
+  height: 100%;
+  border-right: 1px solid #ddd;
+}
+
+div.playlist {
+  margin: 0;
+  padding: 8px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 75%;
+  height: 100%;
+}
+div.playlist a {
+  color: #888;
+  margin: 0;
+  padding: 4px 8px;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+div.playlist a:hover {
+  background: #ddd;
+  color: #666;
+}
+div.playlist a:active {
+  background: #aaa;
+  color: #fff;
+}
+div.playlist div {
+  border: 1px solid #ddd;
+  height: 100%;
+  padding: 8px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
