@@ -3,7 +3,7 @@
 	<a class="play" ng-click="play();"><i class="fa fa-play"></i></a>
 	<a class="pause" ng-click="pause();"><i class="fa fa-pause"></i></a>
 	<a class="prev"><i class="fa fa-step-backward"></i></a>
-	<a class="fwd"><i class="fa fa-step-forward"></i></a>
+	<a class="fwd" ng-click="forward();"><i class="fa fa-step-forward"></i></a>
 	<a class="fwd-random"><i class="fa fa-question-circle"></i></a>
 
 	<div class="track-info">
@@ -19,6 +19,6 @@
 </div>
 
 <aside class="library" library></aside>
-<div class="playlist" playlist></div>
+<div class="playlist" ng-controller="PlaylistCtrl" playlist></div>
 
 <div class="clear"></div>

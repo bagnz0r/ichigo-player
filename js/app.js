@@ -1,4 +1,16 @@
 var app = angular.module('ichigo', ['ngRoute', 'ngCookies', 'ngAnimate']);
+var playlists = [
+	{
+		label: 'Default',
+		tracks: []
+	}
+];
+var selectedPlaylist = 0;
+var currentTrack = {
+	'playlist': 0,
+	'index': 0
+};
+var playing = false;
 
  //   ____             __ _       
  //  / ___|___  _ __  / _(_) __ _ 
@@ -103,7 +115,7 @@ fileMenu.append(new gui.MenuItem({
 		click: function() {
 			util.chooseFile(function(path) {
 				ichigoAudio.ig_create_stream(path);
-				ichigoAudio.ig_play();
+				playlistActions.play();
 
 				// set title, because boobs?
 				$('title').text('Ichigo - ' + path);
@@ -121,6 +133,11 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'Add files...',
 		click: function() {
+			util.chooseMultipleFiles(function(files) {
+				for (var i in files) {
+					playlists[selectedPlaylist].tracks[playlists[selectedPlaylist].tracks.length] = files[i];
+				}
+			});
 		}
 	}
 ));
@@ -302,13 +319,19 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 
 	// Bind playback actions.
 	$scope.play = function() {
-		ichigoAudio.ig_play();
+		playlistActions.play();
 	};
 	$scope.pause = function() {
-		ichigoAudio.ig_pause();
+		playlistActions.pause();
 	};
 	$scope.stop = function() {
-		ichigoAudio.ig_stop();
+		playlistActions.stop();
+	};
+	$scope.forward = function() {
+		playlistActions.forward();
+	};
+	$scope.back = function() {
+		playlistActions.back();
 	};
 
 	// Add position slider event.
@@ -338,16 +361,40 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 		}
 		else
 		{
-			scrollElement.slider('option', 'disabled', true);
-			$('title').text('Ichigo');
+			// Try to skip the track.
+			if (playing) {
+				if (!playlistActions.forward()) {
+					playlistActions.stop();
+				}
+			}
+			else
+			{
+				// Continue otherwise.
+				scrollElement.slider('option', 'disabled', true);
+				$('title').text('Ichigo');
 
-			$scope.$apply(function() {
-				$scope.trackPos = '00:00';
-				$scope.trackLength = '00:00';
+				$scope.$apply(function() {
+					$scope.trackPos = '00:00';
+					$scope.trackLength = '00:00';
 
-				scrollElement.slider('option', 'max', 0);
-				scrollElement.slider('value', 0);
-			});
+					scrollElement.slider('option', 'max', 0);
+					scrollElement.slider('value', 0);
+				});
+			}
 		}
 	}, 250);
+});
+
+app.controller('PlaylistCtrl', function ($scope) {
+	$scope.tracks = playlists[selectedPlaylist].tracks;
+	setInterval(function() {
+		$scope.$apply(function() {
+			$scope.currentTrack = currentTrack;
+			$scope.active = ichigoAudio.ig_is_stream_active();
+		});
+	}, 250);
+
+	$scope.setTrack = function (playlist, index) {
+		playlistActions.playSelectedTrack(playlist, index);
+	};
 });
