@@ -118,23 +118,12 @@ fileMenu.append(new gui.MenuItem({
 		}
 	}
 ));
-fileMenu.append(new gui.MenuItem({
-		label: 'Open audio CD...',
-		click: function() {
-		}
-	}
-));
 fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'Add files...',
 		click: function() {
 			util.chooseMultipleFiles(function(files) {
-				for (var i in files) {
-					playlist.tracks[playlist.tracks.length] = {
-						'file': files[i],
-						'tags': {}
-					};
-				}
+				playlistActions.fillPlaylist(files);
 			});
 		}
 	}
@@ -149,12 +138,17 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'New playlist...',
 		click: function() {
+			playlistActions.stop();
+			playlistActions.clear();
 		}
 	}
 ));
 fileMenu.append(new gui.MenuItem({
 		label: 'Open playlist...',
 		click: function() {
+			playlistActions.stop();
+			playlistActions.clear();
+			playlistActions.createFromFile();
 		}
 	}
 ));
@@ -210,18 +204,21 @@ viewMenu.append(new gui.MenuItem({
 playbackMenu.append(new gui.MenuItem({
 		label: 'Stop',
 		click: function() {
+			playlistActions.stop();
 		}
 	}
 ));
 playbackMenu.append(new gui.MenuItem({
 		label: 'Play',
 		click: function() {
+			playlistActions.play();
 		}
 	}
 ));
 playbackMenu.append(new gui.MenuItem({
 		label: 'Pause',
 		click: function() {
+			playlistActions.pause();
 		}
 	}
 ));
@@ -229,26 +226,21 @@ playbackMenu.append(new gui.MenuItem({ type: 'separator' }));
 playbackMenu.append(new gui.MenuItem({
 		label: 'Previous',
 		click: function() {
+			playlistActions.back();
 		}
 	}
 ));
 playbackMenu.append(new gui.MenuItem({
 		label: 'Next',
 		click: function() {
+			playlistActions.forward();
 		}
 	}
 ));
 playbackMenu.append(new gui.MenuItem({
 		label: 'Random',
 		click: function() {
-		}
-	}
-));
-playbackMenu.append(new gui.MenuItem({ type: 'separator' }));
-playbackMenu.append(new gui.MenuItem({
-		label: 'Shuffle',
-		type: 'checkbox',
-		click: function() {
+			playlistActions.forwardRand();
 		}
 	}
 ));
@@ -387,15 +379,15 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 });
 
 app.controller('PlaylistCtrl', function ($scope) {
-	$scope.tracks = playlist.tracks;
 	setInterval(function() {
 		$scope.$apply(function() {
+			$scope.tracks = playlist.tracks;
 			$scope.currentTrack = currentTrack;
 			$scope.active = ichigoAudio.ig_is_stream_active();
 		});
 	}, 250);
 
-	$scope.setTrack = function (playlist, index) {
-		playlistActions.playSelectedTrack(playlist, index);
+	$scope.setTrack = function (index) {
+		playlistActions.playSelectedTrack(index);
 	};
 });
