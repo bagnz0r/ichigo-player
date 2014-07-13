@@ -1,6 +1,7 @@
-<a>Default</a>
-<div id="playlist-0" ng-model="tracks">
+<div ng-model="tracks">
 	<ul>
-		<li ng-repeat="track in tracks" ng-click="setTrack(0, $index);" ng-class="{'selected': $index == currentTrack.index && active }">{{ track }}</li>
+		<li ng-repeat="track in tracks" ng-click="setTrack(0, $index);" ng-class="{'selected': $index == currentTrack && active }">
+			{{ track.artist == undefined || track.title == undefined ? track.file : track.artist + ' - ' + track.title }}
+		</li>
 	</ul>
 </div>

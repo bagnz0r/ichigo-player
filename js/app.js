@@ -1,15 +1,10 @@
 var app = angular.module('ichigo', ['ngRoute', 'ngCookies', 'ngAnimate']);
-var playlists = [
-	{
-		label: 'Default',
-		tracks: []
-	}
-];
-var selectedPlaylist = 0;
-var currentTrack = {
-	'playlist': 0,
-	'index': 0
+
+var playlist = {
+	label: 'Default',
+	tracks: []
 };
+var currentTrack = -1;
 var playing = false;
 
  //   ____             __ _       
@@ -135,7 +130,10 @@ fileMenu.append(new gui.MenuItem({
 		click: function() {
 			util.chooseMultipleFiles(function(files) {
 				for (var i in files) {
-					playlists[selectedPlaylist].tracks[playlists[selectedPlaylist].tracks.length] = files[i];
+					playlist.tracks[playlist.tracks.length] = {
+						'file': files[i],
+						'tags': {}
+					};
 				}
 			});
 		}
@@ -333,6 +331,9 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 	$scope.back = function() {
 		playlistActions.back();
 	};
+	$scope.forwardRand = function() {
+		playlistActions.forwardRand();
+	};
 
 	// Add position slider event.
 	scrollElement.slider({
@@ -386,7 +387,7 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 });
 
 app.controller('PlaylistCtrl', function ($scope) {
-	$scope.tracks = playlists[selectedPlaylist].tracks;
+	$scope.tracks = playlist.tracks;
 	setInterval(function() {
 		$scope.$apply(function() {
 			$scope.currentTrack = currentTrack;

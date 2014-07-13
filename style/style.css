@@ -276,7 +276,6 @@ div.playlist {
   box-sizing: border-box;
   display: inline-block;
   width: 75%;
-  height: 86.25%;
 }
 div.playlist a {
   color: #888;
@@ -314,8 +313,6 @@ div.playlist a:active {
   color: #fff;
 }
 div.playlist div {
-  border: 1px solid #ddd;
-  border-bottom: none;
   height: 100%;
   overflow-y: auto;
   padding: 8px;
