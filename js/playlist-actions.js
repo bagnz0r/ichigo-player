@@ -8,6 +8,11 @@ var playlistActions = {
 			return false;
 		}
 
+		// execute plugin actions
+		for (var i in pluginActions.onTrackEnd) {
+			pluginActions.onTrackEnd[i](playlist.tracks[currentTrack]);
+		}
+
 		currentTrack = currentTrack + 1;
 		playlistActions.playTrackAtCurrentIndex();
 
@@ -22,6 +27,11 @@ var playlistActions = {
 			return false;
 		}
 
+		// execute plugin actions
+		for (var i in pluginActions.onTrackEnd) {
+			pluginActions.onTrackEnd[i](playlist.tracks[currentTrack]);
+		}
+
 		currentTrack = currentTrack - 1;
 		playlistActions.playTrackAtCurrentIndex();
 
@@ -34,6 +44,11 @@ var playlistActions = {
 	forwardRand: function () {
 		if (!playing) {
 			return false;
+		}
+
+		// execute plugin actions
+		for (var i in pluginActions.onTrackEnd) {
+			pluginActions.onTrackEnd[i](playlist.tracks[currentTrack]);
 		}
 
 		currentTrack = Math.floor(Math.random() * playlist.tracks.length);
@@ -70,6 +85,13 @@ var playlistActions = {
 	 * Stops the currently playing track
 	 */
 	stop: function () {
+		if (playing) {
+			// execute plugin actions
+			for (var i in pluginActions.onTrackEnd) {
+				pluginActions.onTrackEnd[i]();
+			}
+		}
+		
 		ichigoAudio.ig_stop();
 		currentTrack = -1;
 		playing = false;
@@ -86,21 +108,55 @@ var playlistActions = {
 		playing = true;
 
 		// set title, because boobs?
-		$('title').text('Ichigo - ' + path);
+		var trackInfo = '';
+		if (playlist.tracks[currentTrack].tags.artist != undefined && playlist.tracks[currentTrack].tags.title != undefined) {
+			trackInfo = playlist.tracks[currentTrack].tags.artist;
+
+			if (playlist.tracks[currentTrack].tags.album != undefined) {
+				trackInfo += ' [' + playlist.tracks[currentTrack].tags.album;
+
+				if (playlist.tracks[currentTrack].tags.track_number != undefined) {
+					trackInfo += ' ' + playlist.tracks[currentTrack].tags.track_number;
+				}
+
+				trackInfo += ']';
+			}
+
+			trackInfo += ' - ' + playlist.tracks[currentTrack].tags.title;
+		}
+
+		$('title').text('Ichigo - ' + trackInfo);
+
+		// execute plugin actions
+		for (var i in pluginActions.onTrackBegin) {
+			pluginActions.onTrackBegin[i](playlist.tracks[currentTrack]);
+		}
 	},
 
 	/**
 	 * Fill playlist with files (provide an array)
 	 */
 	fillPlaylist: function (files) {
-		for (var i in files) {
-			playlist.tracks[playlist.tracks.length] = {
-				'file': files[i].trim(),
-				'tags': {}
-			};
+		util.showLoadingDialog();
 
-			// TODO: Parse tags here?
-		}
+		setTimeout(function() {
+			var count = 0;
+			for (var i in files) {
+				var path = files[i].trim();
+				var tags = util.parseTags(path);
+
+				playlist.tracks[playlist.tracks.length] = {
+					'file': path,
+					'tags': tags
+				};
+
+				count++;
+
+				if (count == files.length) {
+					util.closeLoadingDialog();
+				}
+			}
+		}, 1000);
 	},
 
 	/**

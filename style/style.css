@@ -152,6 +152,16 @@ a:hover {
   text-decoration: none;
 }
 
+#loading-dialog {
+  font-family: 'Open Sans Light';
+  font-size: 40px;
+  text-align: center;
+}
+#loading-dialog img {
+  display: block;
+  margin: 10px auto;
+}
+
 button, a.button {
   background: #fff;
   color: #888;

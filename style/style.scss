@@ -169,6 +169,18 @@ a {
 	}
 }
 
+#loading-dialog {
+	font-family: 'Open Sans Light';
+	font-size: 40px;
+
+	text-align: center;
+
+	img {
+		display: block;
+		margin: 10px auto;
+	}
+}
+
 button, a.button {
 	background: #fff;
 

@@ -1,5 +1,11 @@
 var app = angular.module('ichigo', ['ngRoute', 'ngCookies', 'ngAnimate']);
 
+var pluginActions = {
+	onTrackBegin: [],
+	onTrackEnd: [],
+	onTrackPositionUpdate: [],
+}
+
 var playlist = {
 	label: 'Default',
 	tracks: []
@@ -109,11 +115,9 @@ fileMenu.append(new gui.MenuItem({
 		label: 'Open...',
 		click: function() {
 			util.chooseFile(function(path) {
-				ichigoAudio.ig_create_stream(path);
-				playlistActions.play();
-
-				// set title, because boobs?
-				$('title').text('Ichigo - ' + path);
+				playlistActions.stop();
+				playlistActions.clear();
+				playlistActions.fillPlaylist(file);
 			});
 		}
 	}
@@ -162,6 +166,15 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'Settings',
 		click: function() {
+		}
+	}
+));
+fileMenu.append(new gui.MenuItem({ type: 'separator' }));
+fileMenu.append(new gui.MenuItem({
+		label: 'Last.fm authenticate (!! TEMPORARY OPTION !!)',
+		click: function() {
+			alert('Authentication will only occur if you haven\'t authd already btw.');
+			lastfm_Authenticate(window.prompt('Enter username'));
 		}
 	}
 ));
@@ -350,6 +363,11 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 				
 				scrollElement.slider('option', 'max', len);
 				scrollElement.slider('value', pos);
+
+				// execute plugin actions
+				for (var i in pluginActions.onTrackPositionUpdate) {
+					pluginActions.onTrackPositionUpdate[i](pos, len);
+				}
 			});
 		}
 		else
@@ -375,7 +393,7 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 				});
 			}
 		}
-	}, 250);
+	}, 100);
 });
 
 app.controller('PlaylistCtrl', function ($scope) {
@@ -385,7 +403,7 @@ app.controller('PlaylistCtrl', function ($scope) {
 			$scope.currentTrack = currentTrack;
 			$scope.active = ichigoAudio.ig_is_stream_active();
 		});
-	}, 250);
+	}, 100);
 
 	$scope.setTrack = function (index) {
 		playlistActions.playSelectedTrack(index);
