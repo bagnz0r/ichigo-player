@@ -13,7 +13,7 @@ var ichigoAudio = ffi.Library('ichigo-audio', {
 	//
 	// Creates an audio stream from file
 	//
-	'ig_create_stream': ['void', [ wchar_string ]],
+	'ig_create_stream': ['int', [ wchar_string ]],
 
 	//
 	// Creates an audio stream from URL

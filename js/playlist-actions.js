@@ -103,7 +103,7 @@ var playlistActions = {
 	playTrackAtCurrentIndex: function () {
 		var path = playlist.tracks[currentTrack].file;
 
-		ichigoAudio.ig_create_stream(path);
+		console.log(ichigoAudio.ig_create_stream(path));
 		ichigoAudio.ig_play();
 		playing = true;
 

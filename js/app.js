@@ -382,7 +382,9 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 			{
 				// Continue otherwise.
 				scrollElement.slider('option', 'disabled', true);
-				$('title').text('Ichigo');
+				if ($('title').text() != 'Ichigo') {
+					$('title').text('Ichigo');
+				}
 
 				$scope.$apply(function() {
 					$scope.trackPos = '00:00';
