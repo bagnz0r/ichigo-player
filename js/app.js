@@ -4,6 +4,8 @@ var pluginActions = {
 	onTrackBegin: [],
 	onTrackEnd: [],
 	onTrackPositionUpdate: [],
+	onConfigure: [],
+	onGetInfo: [],
 }
 
 var playlist = {
@@ -24,10 +26,6 @@ app.config(function ($routeProvider) {
 		templateUrl: 'views/home.html',
 		controller: 'HomeCtrl',
 		controllerAs: 'home'
-	}).when('/about', {
-		templateUrl: 'views/about.html',
-		controller: 'AboutCtrl',
-		controllerAs: 'about'
 	}).when('/settings', {
 		templateUrl: 'views/settings.html',
 		controller: 'SettingsCtrl',
@@ -55,7 +53,13 @@ app.directive('playlist', function () {
 		restrict: 'A',
 		templateUrl: 'views/directives/selectionproperties.html'
 	};
+}).directive('equalizer', function () {
+	return {
+		restrict: 'AE',
+		templateUrl: 'views/directives/equalizer.html'
+	};
 });
+
 
 
  //  ____       _                          _           _               
@@ -166,15 +170,7 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'Settings',
 		click: function() {
-		}
-	}
-));
-fileMenu.append(new gui.MenuItem({ type: 'separator' }));
-fileMenu.append(new gui.MenuItem({
-		label: 'Last.fm authenticate (!! TEMPORARY OPTION !!)',
-		click: function() {
-			alert('Authentication will only occur if you haven\'t authd already btw.');
-			lastfm_Authenticate(window.prompt('Enter username'));
+			document.location = '#/settings';
 		}
 	}
 ));
@@ -196,6 +192,17 @@ fileMenu.append(new gui.MenuItem({
 viewMenu.append(new gui.MenuItem({
 		label: 'Equalizer',
 		click: function() {
+			$('#equalizer-dialog').dialog({
+				width: 850,
+				height: 180,
+				modal: true,
+				resizable: false,
+				draggable: false
+			});
+
+			$('#equalizer-dialog button').click(function() {
+				$('#equalizer-dialog').dialog('close');
+			});
 		}
 	}
 ));
@@ -297,20 +304,46 @@ app.controller('HomeCtrl', function ($scope) {
 	// do some shit? i don't know...
 });
 
+app.controller('EqualizerCtrl', function ($scope) {
+	ichigoAudio.ig_enable_equalizer();
+
+	var bands = [];
+	for (var i = 1; i <= 18; i++) {
+		bands[i] = $('#eq-band' + i);
+		bands[i].slider({
+			min: -1500,
+			max: 1500,
+			value: 0,
+			orientation: 'vertical',
+			slide: function (event, ui) {
+				var freq = $(this).attr('data-frequency');
+				var id = $(this).attr('data-id');
+				var gain = ui.value/100;
+
+				ichigoAudio.ig_set_equalizer(parseInt(id), 1, parseFloat(freq), gain);
+
+				console.log('Equalizer: ' + freq + ' hZ @ ' + gain + ' db');
+			}
+		});
+
+		bands[i].attr('data-id', i);
+	}
+});
+
 app.controller('PlaybackCtrl', function ($scope, $timeout) {
 	// Prepare position scroll element.
 	var scrollElement = $('#track-scroll-element');
-	scrollElement.slider();
-	scrollElement.slider('option', 'max', 0);
-	scrollElement.slider('value', 0);
-	scrollElement.slider('option', 'disabled', true);
+	scrollElement.slider({
+		value: 0,
+		max: 0,
+		disabled: true
+	});
 
 	// Prepare volume scroll element.
 	var volumeScrollElement = $('#volume-control');
-	volumeScrollElement.slider();
-	volumeScrollElement.slider('option', 'max', 100);
-	volumeScrollElement.slider('value', 100);
 	volumeScrollElement.slider({
+		max: 100,
+		value: 100,
 		slide: function (event, ui) {
 			ichigoAudio.ig_set_volume(ui.value/100);
 		}
@@ -409,5 +442,35 @@ app.controller('PlaylistCtrl', function ($scope) {
 
 	$scope.setTrack = function (index) {
 		playlistActions.playSelectedTrack(index);
+	};
+});
+
+app.controller('SettingsCtrl', function ($scope) {
+	$('#settings-tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
+	$('#tabs li').removeClass('ui-corner-top').addClass('ui-corner-left');
+});
+
+app.controller('PluginsCtrl', function ($scope) {
+	var plugins = [];
+	for (index in pluginActions.onGetInfo) {
+		plugins[index] = pluginActions.onGetInfo[index]();
+	}
+
+	$scope.plugins = plugins;
+	$scope.currentPlugin = -1;
+	$scope.isEnabled = false;
+
+	$scope.togglePlugin = function () {
+		util.togglePlugin(plugins[$scope.currentPlugin].scope);
+		$scope.isEnabled = util.isPluginEnabled(plugins[$scope.currentPlugin].scope);
+	};
+
+	$scope.configurePlugin = function () {
+		pluginActions.onConfigure[index]();
+	}
+
+	$scope.setPlugin = function (index) {
+		$scope.currentPlugin = index;
+		$scope.isEnabled = util.isPluginEnabled(plugins[$scope.currentPlugin].scope);
 	};
 });

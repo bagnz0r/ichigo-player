@@ -1,1 +1,12 @@
-Nothing in the library!<br><a ng-href="#/add-media">Add media</a>
+<div ng-model="albums">
+	<ul ng-hide="!albums.length">
+		<li ng-repeat="album in albums">
+			{{ album.artist == undefined || album.title == undefined ? "Unknown": album.artist + " - " + album.title + "(" + album.tracks + ")" }}
+		</li>
+	</ul>
+	<div ng-show="!albums.length">
+		Nothing in the library!
+		<br>
+		<a ng-href="#/settings">Add media</a>
+	</div>
+</div>

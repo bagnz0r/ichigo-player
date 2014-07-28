@@ -1,0 +1,61 @@
+<div class="content">
+	<div id="settings-tabs">
+		<ul>
+			<li><a href="#s-plugins">Plugins</a></li>
+			<li><a href="#s-theme">Theme</a></li>
+			<li><a href="#s-library">Library</a></li>
+			<li><a href="#s-playback">Playback</a></li>
+		</ul>
+
+		<div id="s-plugins" ng-controller="PluginsCtrl">
+			<h1>Plugins</h1>
+			<div class="plugins" ng-model="plugins">
+				<ul>
+					<li ng-repeat="plugin in plugins" ng-click="setPlugin($index);" ng-class="{'selected': $index == currentPlugin }">
+						{{ plugin.name + ' v' + plugin.version }}
+					</li>
+				</ul>
+			</div>
+
+			<div class="plugin-info">
+				<div ng-hide="plugins[currentPlugin].name.length">
+					Please choose a plugin on the list.
+				</div>
+
+				<div ng-hide="!plugins[currentPlugin].name.length">
+					<label>Name</label>
+					{{ plugins[currentPlugin].name }}
+				</div>
+
+				<div ng-hide="!plugins[currentPlugin].name.length">
+					<label>Version</label>
+					v{{ plugins[currentPlugin].version }}
+				</div>
+
+				<div ng-hide="!plugins[currentPlugin].name.length">
+					<label>Author</label>
+					<a href="{{ plugins[currentPlugin].url }}" class="glob" target="_blank">{{ plugins[currentPlugin].author }}</a>
+				</div>
+
+				<div class="buttons" ng-hide="!plugins[currentPlugin].name.length">
+					<a class="button" ng-click="togglePlugin();" ng-class="{'enabled': isEnabled }">Toggle plugin</a>
+					<a class="button" ng-click="configurePlugin();">Configure</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="s-theme">
+			<h1>Theme</h1>
+		</div>
+
+		<div id="s-library">
+			<h1>Library</h1>
+		</div>
+
+		<div id="s-playback">
+			<h1>Playback</h1>
+		</div>
+
+		<a ng-href="#/" class="x button">X</a>
+	</div>
+</div>

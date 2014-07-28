@@ -66,5 +66,12 @@ var util = {
 	},
 	addPluginAction: function(eventType, func) {
 		pluginActions[eventType][pluginActions[eventType].length] = func;
+	},
+	togglePlugin: function(scope) {
+		localStorage[scope + '.enabled'] = localStorage[scope + '.enabled'] == "true" ? false : true;
+		return localStorage[scope + '.enabled'];
+	},
+	isPluginEnabled: function(scope) {
+		return localStorage[scope + '.enabled'] == "true" ? true : false;
 	}
 };

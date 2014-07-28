@@ -103,11 +103,39 @@ div.clear {
   clear: both;
 }
 
-a {
+a, a.glob {
   color: #24cdee;
 }
-a:hover {
+a:hover, a.glob:hover {
   text-decoration: none;
+}
+
+div.dialog button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+#equalizer-dialog .eq-band {
+  display: inline-block;
+  margin: 2px 10px;
+}
+#equalizer-dialog .eq-band label {
+  display: block;
+  font-family: 'Open Sans Light';
+  font-size: 9px;
+  margin: 4px 0;
+  margin-left: -5px !important;
+  text-align: center;
+}
+#equalizer-dialog .ui-slider-handle {
+  width: 16px !important;
+}
+#equalizer-dialog button {
+  position: absolute;
+  bottom: 10px;
+  left: 45%;
+  right: 45%;
 }
 
 #about-dialog h1 {
@@ -124,11 +152,6 @@ a:hover {
 #about-dialog span.ver {
   color: #aaa;
   font-size: 14px;
-}
-#about-dialog button {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
 }
 #about-dialog div {
   margin: 16px 0;
@@ -163,19 +186,22 @@ a:hover {
 }
 
 button, a.button {
-  background: #fff;
-  color: #888;
-  margin: 0;
-  padding: 4px 8px;
-  display: block;
+  background: #fff !important;
+  color: #888 !important;
+  margin: 0 !important;
+  padding: 4px 8px !important;
+  width: auto !important;
+  display: inline-block;
   outline: none !important;
+  text-decoration: none !important;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  text-align: center;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  text-align: center !important;
+  font-size: 12px !important;
+  font-family: 'Open Sans' !important;
+  border: 1px solid #ccc !important;
+  border-radius: 3px !important;
   -moz-transition-property: background;
   -o-transition-property: background;
   -webkit-transition-property: background;
@@ -190,13 +216,13 @@ button, a.button {
   transition-timing-function: ease-in;
 }
 button:hover, a.button:hover {
-  background: #ddd;
-  color: #666;
-  border-color: #bbb;
+  background: #ddd !important;
+  color: #666 !important;
+  border-color: #bbb !important;
 }
 button:active, a.button:active {
-  background: #aaa;
-  color: #fff;
+  background: #aaa !important;
+  color: #fff !important;
 }
 
 div.playback-controls {
@@ -278,7 +304,7 @@ aside.library {
   border-right: 1px solid #ddd;
 }
 
-div.playlist {
+div.playlist, div.plugins {
   margin: 0;
   padding: 8px;
   -moz-box-sizing: border-box;
@@ -288,42 +314,7 @@ div.playlist {
   width: 75%;
   height: 86.5%;
 }
-div.playlist a {
-  color: #888;
-  margin: 0;
-  padding: 4px 8px;
-  display: inline-block;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 14px;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  border-top: 1px solid #ddd;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  -moz-transition-property: background;
-  -o-transition-property: background;
-  -webkit-transition-property: background;
-  transition-property: background;
-  -moz-transition-duration: 0.1s;
-  -o-transition-duration: 0.1s;
-  -webkit-transition-duration: 0.1s;
-  transition-duration: 0.1s;
-  -moz-transition-timing-function: ease-in;
-  -o-transition-timing-function: ease-in;
-  -webkit-transition-timing-function: ease-in;
-  transition-timing-function: ease-in;
-}
-div.playlist a:hover {
-  background: #ddd;
-  color: #666;
-}
-div.playlist a:active {
-  background: #aaa;
-  color: #fff;
-}
-div.playlist div {
+div.playlist div, div.plugins div {
   height: 100%;
   overflow-y: auto;
   padding: 8px;
@@ -331,11 +322,11 @@ div.playlist div {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-div.playlist ul {
+div.playlist ul, div.plugins ul {
   margin: 0;
   padding: 0;
 }
-div.playlist ul li {
+div.playlist ul li, div.plugins ul li {
   margin: 1px 0;
   padding: 4px 4px;
   list-style: none;
@@ -362,17 +353,97 @@ div.playlist ul li {
   -webkit-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
 }
-div.playlist ul li.selected {
-  background: #f0f0f0;
+div.playlist ul li.selected, div.plugins ul li.selected {
+  background: #f6f6f6;
   color: #666;
   border: 1px solid #ccc;
 }
-div.playlist ul li:hover {
-  background: #ddd;
+div.playlist ul li:hover, div.plugins ul li:hover {
+  background: #eaeaea;
   color: #666;
   border: 1px solid #ccc;
 }
-div.playlist ul li:active {
+div.playlist ul li:active, div.plugins ul li:active {
   background: #aaa;
   color: #fff;
+}
+
+div.content {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+div.content h1, div.content h2, div.content h3 {
+  padding: 0;
+  margin: 0 0 10px 0;
+  font-family: 'Open Sans Light';
+}
+div.content h1 {
+  font-size: 40px;
+}
+div.content h2 {
+  font-size: 30px;
+}
+div.content h3 {
+  font-size: 20px;
+}
+
+#settings-tabs {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+#settings-tabs a.x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px !important;
+  z-index: 2;
+  cursor: default;
+}
+#settings-tabs div.plugins {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50%;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 4px;
+}
+#settings-tabs div.plugin-info {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 32%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+#settings-tabs div.plugin-info div {
+  margin: 0 0 10px 0;
+}
+#settings-tabs div.plugin-info div label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+#settings-tabs div.plugin-info div.buttons {
+  margin-top: 11px;
+}
+#settings-tabs div.plugin-info div.buttons a.enabled {
+  background: #eafee2 !important;
+  color: #43ca06 !important;
+  border: 1px solid #43ca06 !important;
 }

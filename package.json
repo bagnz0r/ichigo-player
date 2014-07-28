@@ -5,9 +5,9 @@
 	"single-instance": true,
 	"window": {
 		"title": "Ichigo v0.10",
-		"width": 920,
+		"width": 1024,
 		"height": 600,
-		"min_width": 920,
+		"min_width": 1024,
 		"min_height": 600,
 		"toolbar": false
 	}

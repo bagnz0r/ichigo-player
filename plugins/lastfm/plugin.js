@@ -25,32 +25,51 @@ $(document).ready(function() {
 	});
 });
 
-function lastfm_Authenticate(username) {
-	if (localStorage['lastfm.session'] == undefined) {
-		lastfm.auth.getToken({
-			success: function (data) {
-				var auth = window.open('http://last.fm/api/auth/?api_key=' + keys.public + '&token=' + data.token);
-				var timer = setInterval(function () {
-					if (!auth.closed) return;
-
-					clearInterval(timer);
-
-					lastfm.auth.getSession({
-						username: username,
-						token: data.token
-					}, {
-						success: function(data) {
-							localStorage['lastfm.session'] = JSON.stringify(data.session);
-						},
-						error: function(code, message) {
-							alert(message);
-						}
-					});
-				}, 1000);
-			}
-		});
+function lastfm_Authenticate() {
+	var username = prompt('Please enter your Last.fm username', '');
+	if (username == undefined || username.length < 1) {
+		return;
 	}
+
+	util.showLoadingDialog();
+
+	lastfm.auth.getToken({
+		success: function (data) {
+			var auth = window.open('http://last.fm/api/auth/?api_key=' + keys.public + '&token=' + data.token);
+			var timer = setInterval(function () {
+				if (!auth.closed) return;
+
+				clearInterval(timer);
+
+				lastfm.auth.getSession({
+					username: username,
+					token: data.token
+				}, {
+					success: function(data) {
+						localStorage['lastfm.session'] = JSON.stringify(data.session);
+						util.closeLoadingDialog();
+					},
+					error: function(code, message) {
+						alert('Last.fm: Configuration error!');
+						util.closeLoadingDialog();
+					}
+				});
+			}, 1000);
+		}
+	});
 }
+
+util.addPluginAction('onGetInfo', function() {
+	return {
+		'name': 'Last.fm Scrobbler',
+		'version': '1.0',
+		'author': 'bagnz0r',
+		'url': 'http://github.com/bagnz0r',
+		'scope': 'lastfm'
+	};
+});
+
+util.addPluginAction('onConfigure', lastfm_Authenticate);
 
 util.addPluginAction('onTrackBegin', function(_track) {
 	if (!(localStorage.getItem('lastm.enabled') || true)) return;
