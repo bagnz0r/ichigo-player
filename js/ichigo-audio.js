@@ -13,7 +13,7 @@ var ichigoAudio = ffi.Library('ichigo-audio', {
 	//
 	// Creates an audio stream from file
 	//
-	'ig_create_stream': ['int', [ wchar_string ]],
+	'ig_create_stream': ['int', [ 'string' ]], // TODO: For Windows should be wchar_string
 
 	//
 	// Creates an audio stream from URL
@@ -86,7 +86,7 @@ var ichigoAudio = ffi.Library('ichigo-audio', {
 	//
 	// Arguments: file_name, tag_format
 	//
-	'ig_read_tag_from_file': ['string', [ wchar_string, 'string' ]],
+	'ig_read_tag_from_file': ['string', [ 'string', 'string' ]],
 
 	//
 	// Enables the equalizer
@@ -114,4 +114,4 @@ var ichigoAudio = ffi.Library('ichigo-audio', {
 
 // Initialize device.
 // TODO: Allow user to choose device and sampling frequency.
-ichigoAudio.ig_initialize(-1, 44100);
+console.log('Init status: ' + ichigoAudio.ig_initialize(-1, 44100));

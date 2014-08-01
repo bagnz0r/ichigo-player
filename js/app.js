@@ -116,7 +116,7 @@ new gui.MenuItem({
  // |_|   |_|_|\___| |_| |_| |_|\___|_| |_|\__,_|
                                               
 fileMenu.append(new gui.MenuItem({
-		label: 'Open...',
+		label: 'Open',
 		click: function() {
 			util.chooseFile(function(path) {
 				playlistActions.stop();
@@ -128,7 +128,7 @@ fileMenu.append(new gui.MenuItem({
 ));
 fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
-		label: 'Add files...',
+		label: 'Add files',
 		click: function() {
 			util.chooseMultipleFiles(function(files) {
 				playlistActions.fillPlaylist(files);
@@ -137,14 +137,14 @@ fileMenu.append(new gui.MenuItem({
 	}
 ));
 fileMenu.append(new gui.MenuItem({
-		label: 'Add folder...',
+		label: 'Add folder',
 		click: function() {
 		}
 	}
 ));
 fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
-		label: 'New playlist...',
+		label: 'New playlist',
 		click: function() {
 			playlistActions.stop();
 			playlistActions.clear();
@@ -152,7 +152,7 @@ fileMenu.append(new gui.MenuItem({
 	}
 ));
 fileMenu.append(new gui.MenuItem({
-		label: 'Open playlist...',
+		label: 'Open playlist',
 		click: function() {
 			playlistActions.stop();
 			playlistActions.clear();
@@ -161,7 +161,7 @@ fileMenu.append(new gui.MenuItem({
 	}
 ));
 fileMenu.append(new gui.MenuItem({
-		label: 'Save playlist...',
+		label: 'Save playlist',
 		click: function() {
 		}
 	}
@@ -274,7 +274,7 @@ playbackMenu.append(new gui.MenuItem({
  //              |_|                                 
 
 helpMenu.append(new gui.MenuItem({
-		label: 'About Ichigo...',
+		label: 'About Ichigo',
 		click: function() {
 			$('#about-dialog').dialog({
 				width: 400,
