@@ -166,7 +166,7 @@ var playlistActions = {
 					util.closeLoadingDialog();
 				}
 			}
-		}, 1000);
+		}, 500);
 	},
 
 	//

@@ -131,7 +131,7 @@ var lastfmPlugin = {
 
 		var percentage = pos / len * 100;
 		if (percentage > (localStorage.getItem(lastfmPlugin.scope + '.minimumScrobbleThreshold') || 50) && !lastfmPlugin.scrobbled) {
-			lastfm.track.scrobble([
+			lastfmPlugin.lastfm.track.scrobble([
 				{
 					artist: lastfmPlugin.track.tags.artist,
 					track: lastfmPlugin.track.tags.title,

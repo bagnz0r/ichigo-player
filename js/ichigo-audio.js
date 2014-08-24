@@ -108,9 +108,9 @@ var ichigoAudio = ffi.Library('ichigo-audio.dll', {
 	// freq: 1...n
 	// gain 0..n
 	//
-	// Arguments: band, quality, freq, gain
+	// Arguments: band, freq, gain
 	//
-	'ig_set_equalizer': ['void', ['int', 'int', 'float', 'float']]
+	'ig_set_equalizer': ['void', ['int', 'float', 'float']]
 	
 });
 
