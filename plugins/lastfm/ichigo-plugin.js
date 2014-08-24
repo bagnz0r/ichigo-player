@@ -109,7 +109,7 @@ var lastfmPlugin = {
 		lastfmPlugin.track = track;
 		lastfmPlugin.stamp = Math.round(new Date().getTime() / 1000);
 
-		lastfm.track.updateNowPlaying({
+		lastfmPlugin.astfm.track.updateNowPlaying({
 			artist: lastfmPlugin.track.tags.artist,
 			track: lastfmPlugin.track.tags.title,
 			album: lastfmPlugin.track.tags.album == undefined ? '' : lastfmPlugin.track.tags.album

@@ -66,6 +66,16 @@ var playlistActions = {
 	},
 
 	//
+	// Remove track at provided index
+	//
+	removeSelectedTrack: function(index) {
+		if (currentTrack == index) {
+			playlistActions.stop();
+		}
+		playlist.tracks.splice(index, 1);
+	},
+
+	//
 	// Play/resume currently paused/prepared track
 	//
 	play: function() {

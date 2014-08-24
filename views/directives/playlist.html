@@ -1,5 +1,5 @@
 <div ng-model="tracks">
-	<div ng-repeat="track in tracks" ng-click="setTrack($index);" ng-class="{'selected': $index == currentTrack && active }" class="track">
+	<div ng-repeat="track in tracks" ng-click="setTrack($index);" ng-right-click="spawnTrackMenu($event, $index);" ng-class="{'selected': $index == currentTrack && active }" class="track">
 		<div class="track-number">
 			{{ (track.tags.track_number == undefined ? '??' : track.tags.track_number) }}
 		</div>
