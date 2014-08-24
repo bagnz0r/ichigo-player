@@ -1,10 +1,37 @@
-<div ng-model="albums">
-	<ul ng-hide="!albums.length">
-		<li ng-repeat="album in albums">
-			{{ album.artist == undefined || album.title == undefined ? "Unknown": album.artist + " - " + album.title + "(" + album.tracks + ")" }}
-		</li>
-	</ul>
-	<div ng-show="!albums.length">
+<div ng-controller="LibraryCtrl" ng-model="artists" class="library">
+	<div class="search-chevrons" ng-hide="!artists.length">
+		<i class="fa fa-chevron-up" ng-hide="collapseSearch" ng-click="collapseSearch = true"></i>
+		<i class="fa fa-chevron-down" ng-hide="!collapseSearch" ng-click="collapseSearch = false"></i>
+	</div>
+	<div class="filter" ng-hide="!artists.length || !collapseSearch">
+		<input placeholder="Search artists (regex enabled)" ng-model="searchInput">
+	</div>
+	<div class="list" ng-hide="!artists.length">
+		<div class="artists">
+			<div ng-repeat="artist in artists" ng-class="showAlbum ? 'artist selected' : 'artist'" ng-hide="artist.filtered">
+				<div class="chevrons">
+					<i class="fa fa-chevron-right" ng-hide="showAlbum"></i>
+					<i class="fa fa-chevron-down" ng-hide="!showAlbum"></i>
+				</div>
+				<span ng-click="showAlbum = showAlbum ? false : true">{{ artist.name }}</span>
+				<div ng-hide="!showAlbum">
+					<div ng-class="showTracks ? 'album selected' : 'album'" ng-repeat="album in artist.albums">
+						<div class="chevrons">
+							<i class="fa fa-chevron-right" ng-hide="showTracks"></i>
+							<i class="fa fa-chevron-down" ng-hide="!showTracks"></i>
+						</div>
+						<span ng-click="showTracks = showTracks ? false : true; setTracks(album)" ng-right-click="setTracks(album); spawnAlbumMenu($event, album.tracks);">{{ album.title }}</span>
+						<div ng-hide="!showTracks">
+							<div class="track" ng-repeat="track in album.tracks">
+								<span ng-click="showTracks = showTracks ? false : true" ng-right-click="spawnTrackMenu($event, track.path);">{{ track.track_number != undefined ? track.track_number + '. ': '' }}{{ track.title }}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-show="!artists.length">
 		Nothing in the library!
 		<br>
 		<a ng-href="#/settings">Add media</a>

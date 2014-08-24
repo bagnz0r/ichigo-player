@@ -16,6 +16,7 @@
 	<script src="js/app.js"></script>
 	<script src="js/util.js"></script>
 	<script src="js/playlist-actions.js"></script>
+	<script src="js/media-library.js"></script>
 
 	<!-- Plugins -->
 	<script src="plugins/lastfm/components/lastfm/lastfm.api.js"></script>
@@ -31,6 +32,8 @@
 	<link rel="stylesheet" href="components/jquery-ui/jquery-ui.theme.css">
 
 	<link rel="stylesheet" href="style/jquery-ui.css">
+
+	<link rel="icon" href="icon.ico" type="image/x-icon">
 </head>
 <body>
 	<!-- Some hidden controls -->
@@ -40,7 +43,7 @@
 	<!-- About box -->
 	<div id="about-dialog" class="dialog hidden">
 		<h1>Ichigo</h1>
-		<span class="ver">v0.10</span>
+		<span class="ver">v0.11 alpha</span>
 		<span>The multiplatform foobar incarnate</span>
 
 		<div>
@@ -63,14 +66,25 @@
 			</ul>
 		</div>
 
-		<a href="http://ichigo-player.org" target="_blank">http://ichigo-player.org</a>
+		<a href="http://ichigo-player.pl" target="_blank">http://ichigo-player.pl</a>
 
 		<button class="close">Close</button>
 	</div>
 
+	<!-- Alpha box -->
+	<div id="alpha-dialog" class="dialog hidden">
+		<h1>Warning!</h1>
+
+		<div>
+			This application is in early stages of development. Be aware that many many things are still unimplemented, buggy and slow. Please do not use this app if you can't bear with difficulties.
+		</div>
+
+		<button class="close">Okay</button>
+	</div>
+
 	<!-- Loading dialog -->
 	<div id="loading-dialog" class="dialog hidden">
-		Please wait
+		<span id="loading-dialog-text">Please wait</span>
 		<img src="images/loading.gif" alt="">
 	</div>
 

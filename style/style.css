@@ -6,6 +6,15 @@
   font-family: 'Open Sans Light';
   src: url(../fonts/open-sans/OpenSans-Light.ttf);
 }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 0.5);
+  border-radius: 6px;
+}
+
 .hidden {
   display: none;
 }
@@ -138,40 +147,40 @@ div.dialog button {
   right: 45%;
 }
 
-#about-dialog h1 {
+#about-dialog h1, #alpha-dialog h1 {
   font-family: 'Open Sans Light';
   font-size: 40px;
   margin: 2px 0;
   padding: 0;
 }
-#about-dialog span {
+#about-dialog span, #alpha-dialog span {
   font-family: 'Open Sans Light';
   display: block;
   font-size: 12px;
 }
-#about-dialog span.ver {
+#about-dialog span.ver, #alpha-dialog span.ver {
   color: #aaa;
   font-size: 14px;
 }
-#about-dialog div {
+#about-dialog div, #alpha-dialog div {
   margin: 16px 0;
 }
-#about-dialog div span {
+#about-dialog div span, #alpha-dialog div span {
   font-size: 14px;
   font-weight: bold;
 }
-#about-dialog div ul {
+#about-dialog div ul, #alpha-dialog div ul {
   margin: 2px 0;
   padding-left: 20px;
 }
-#about-dialog div ul li {
+#about-dialog div ul li, #alpha-dialog div ul li {
   margin: 2px 0;
   padding: 0;
 }
-#about-dialog a {
+#about-dialog a, #alpha-dialog a {
   color: #24cdee;
 }
-#about-dialog a:hover {
+#about-dialog a:hover, #alpha-dialog a:hover {
   text-decoration: none;
 }
 
@@ -229,6 +238,7 @@ div.playback-controls {
   margin: 0;
   padding: 8px;
   width: 100%;
+  height: 78px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -300,36 +310,68 @@ aside.library {
   box-sizing: border-box;
   float: left;
   width: 25%;
-  height: 88%;
+  height: 1px;
   border-right: 1px solid #ddd;
 }
-
-div.playlist, div.plugins {
-  margin: 0;
-  padding: 8px;
+aside.library div.library {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  display: inline-block;
-  width: 75%;
-  height: 86.5%;
-}
-div.playlist div, div.plugins div {
+  width: 100%;
   height: 100%;
-  overflow-y: auto;
-  padding: 8px;
+}
+aside.library div.library div.search-chevrons {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  top: -6px;
+}
+aside.library div.library div.filter {
+  position: relative;
+  background: #fff;
+  width: 100%;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  opacity: 1;
+  padding: 6px 0;
+  margin: -10px auto 10px auto;
+  border-bottom: 1px solid #ddd;
 }
-div.playlist ul, div.plugins ul {
-  margin: 0;
-  padding: 0;
+aside.library div.library div.filter input {
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  color: #666;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 4px 8px;
+  outline: none;
 }
-div.playlist ul li, div.plugins ul li {
-  margin: 1px 0;
-  padding: 4px 4px;
-  list-style: none;
+aside.library div.library div.list {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  height: 100%;
+}
+aside.library div.library div.album, aside.library div.library div.track {
+  margin: 2px 5px;
+  background: #f6f6f6;
+}
+aside.library div.library div.track {
+  background: #f8f8f8 !important;
+}
+aside.library div.library div.track:hover {
+  background: #fff !important;
+  border: 1px solid #ccc;
+}
+aside.library div.library div.artist, aside.library div.library div.album, aside.library div.library div.track {
+  margin: 2px 0;
+  padding: 6px 6px;
   background: #fff;
   color: #888;
   display: block;
@@ -353,19 +395,142 @@ div.playlist ul li, div.plugins ul li {
   -webkit-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
 }
-div.playlist ul li.selected, div.plugins ul li.selected {
+aside.library div.library div.artist:hover, aside.library div.library div.album:hover, aside.library div.library div.track:hover {
+  background: #f8f8f8;
+  color: #666;
+  border: 1px solid #ccc;
+}
+aside.library div.library div.artist.selected, aside.library div.library div.album.selected, aside.library div.library div.track.selected {
+  background: #f8f8f8;
+  border: 1px solid #ccc;
+}
+aside.library div.library div.artist div.chevrons, aside.library div.library div.album div.chevrons, aside.library div.library div.track div.chevrons {
+  display: inline-block;
+  width: 16px;
+  margin-right: 1px;
+}
+
+div.plugins div {
+  height: 100%;
+  overflow-y: auto;
+  padding: 8px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+div.plugins ul {
+  margin: 0;
+  padding: 0;
+}
+div.plugins ul li {
+  margin: 1px 0;
+  padding: 6px 6px;
+  background: #fff;
+  color: #888;
+  display: block;
+  list-style-type: none;
+  outline: none !important;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 12px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+div.plugins ul li.selected {
   background: #f6f6f6;
   color: #666;
   border: 1px solid #ccc;
 }
-div.playlist ul li:hover, div.plugins ul li:hover {
+div.plugins ul li:hover {
   background: #eaeaea;
   color: #666;
   border: 1px solid #ccc;
 }
-div.playlist ul li:active, div.plugins ul li:active {
+div.plugins ul li:active {
   background: #aaa;
   color: #fff;
+}
+
+div.playlist, div.plugins {
+  margin: 0;
+  padding: 8px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 75%;
+  height: 1px;
+  overflow: auto;
+}
+div.playlist div.track, div.plugins div.track {
+  margin: 1px 0;
+  padding: 2px 2px;
+  background: #fff;
+  color: #888;
+  display: block;
+  outline: none !important;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 12px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+div.playlist div.track.selected, div.plugins div.track.selected {
+  background: #f6f6f6;
+  color: #666;
+  border: 1px solid #ccc;
+}
+div.playlist div.track:hover, div.plugins div.track:hover {
+  background: #eaeaea;
+  color: #666;
+  border: 1px solid #ccc;
+}
+div.playlist div.track:active, div.plugins div.track:active {
+  background: #aaa;
+  color: #fff;
+}
+div.playlist div.track div.track-number, div.plugins div.track div.track-number {
+  display: inline-block;
+  font-family: 'Open Sans Light';
+  font-size: 46px;
+  margin-right: 10px;
+}
+div.playlist div.track div.track-info, div.plugins div.track div.track-info {
+  display: inline-block;
+}
+div.playlist div.track div.track-info div.track-artist, div.plugins div.track div.track-info div.track-artist {
+  font-family: 'Open Sans Light';
+  font-size: 12px;
+}
+div.playlist div.track div.track-info div.track-title, div.plugins div.track div.track-info div.track-title {
+  font-family: 'Open Sans Light';
+  font-size: 20px;
 }
 
 div.content {

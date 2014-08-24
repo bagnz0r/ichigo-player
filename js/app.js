@@ -58,6 +58,16 @@ app.directive('playlist', function () {
 		restrict: 'AE',
 		templateUrl: 'views/directives/equalizer.html'
 	};
+}).directive('ngRightClick', function($parse) {
+    return function(scope, element, attrs) {
+        var fn = $parse(attrs.ngRightClick);
+        element.bind('contextmenu', function(event) {
+            scope.$apply(function() {
+                event.preventDefault();
+                fn(scope, {$event:event});
+            });
+        });
+    };
 });
 
 
@@ -139,6 +149,10 @@ fileMenu.append(new gui.MenuItem({
 fileMenu.append(new gui.MenuItem({
 		label: 'Add folder',
 		click: function() {
+			util.getCompatibleFilesInFolder(function(files) {
+				playlistActions.fillPlaylist(files);
+				util.closeLoadingDialog();
+			});
 		}
 	}
 ));
@@ -301,7 +315,23 @@ win.menu = menubar;
  //  \____\___/|_| |_|\__|_|  \___/|_|_|\___|_|  |___/
                                                    
 app.controller('HomeCtrl', function ($scope) {
-	// do some shit? i don't know...
+	if (!$scope.initialized) {
+		$('#alpha-dialog').dialog({
+			width: 500,
+			height: 200,
+			modal: true,
+			resizable: false,
+			draggable: false
+		});
+
+		$('#alpha-dialog button').click(function() {
+			$('#alpha-dialog').dialog('close');
+		});
+
+		mediaLibrary.initialize();
+	}
+
+	$scope.initialized = true;
 });
 
 app.controller('EqualizerCtrl', function ($scope) {
@@ -431,7 +461,14 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 	}, 100);
 });
 
-app.controller('PlaylistCtrl', function ($scope) {
+app.controller('PlaylistCtrl', function($scope) {
+	// height hack
+	var heightHack = function() { $('div.playlist').css('height', $('body').height() - 78); };
+	heightHack();
+	$(window).resize(function() {
+		heightHack();
+	});
+
 	setInterval(function() {
 		$scope.$apply(function() {
 			$scope.tracks = playlist.tracks;
@@ -440,14 +477,110 @@ app.controller('PlaylistCtrl', function ($scope) {
 		});
 	}, 100);
 
-	$scope.setTrack = function (index) {
+	$scope.setTrack = function(index) {
 		playlistActions.playSelectedTrack(index);
 	};
+});
+
+app.controller('LibraryCtrl', function($scope) {
+	// height hack
+	var heightHack = function() { $('aside.library').css('height', $('body').height() - 78); };
+	heightHack();
+	$(window).resize(function() {
+		heightHack();
+	});
+
+	$scope.selectedTrackList = -1;
+	$scope.selectedTrack = -1;
+
+	var albumMenu = new gui.Menu();
+	albumMenu.append(new gui.MenuItem({
+			label: 'Send to playlist',
+			click: function() {
+				if ($scope.selectedTrackList) {
+					var files = [];
+					for (var i = 0; i < $scope.selectedTrackList.length; i++) {
+						files[i] = $scope.selectedTrackList[i].path;
+
+						if (i >= ($scope.selectedTrackList.length - 1)) {
+							playlistActions.fillPlaylist(files);
+						}
+					}
+				}
+			}
+		}
+	));
+
+	var trackMenu = new gui.Menu();
+	trackMenu.append(new gui.MenuItem({
+			label: 'Send to playlist',
+			click: function() {
+				playlistActions.fillPlaylist([$scope.selectedTrack]);
+			}
+		}
+	));
+
+	var setAlbums = function(artist) {
+		mediaLibrary.getAlbums(artist.id, function(albums) {
+			artist.albums = albums;
+		});
+	};
+
+	mediaLibrary.getArtists(function(result) {
+		$scope.artists = result ? result : [];
+		for (var i = 0; i < $scope.artists.length; i++) {
+			setAlbums($scope.artists[i]);
+		}
+	});
+
+	$scope.spawnAlbumMenu = function(event, tracks) {
+		$scope.selectedTrackList = tracks;
+		albumMenu.popup(event.x, event.y);
+	};
+
+	$scope.spawnTrackMenu = function(event, path) {
+		$scope.selectedTrack = path;
+		trackMenu.popup(event.x, event.y);
+	};
+
+	$scope.setTracks = function(album) {
+		if (album.tracks != undefined) return;
+
+		mediaLibrary.getTracks(album.id, function(tracks) {
+			console.log('Library: Getting tracks for ' + album.id);
+
+			album.tracks = tracks;
+		});
+	};
+
+	$scope.searchInput = '';
+	$scope.$watch('searchInput', function(value) {
+		console.log(value);
+		for (var key in $scope.artists) {
+			var artist = $scope.artists[key];
+			artist.filtered = false;
+			
+			if (!artist.name.match(value) && value != '') {
+				artist.filtered = true;
+			}
+			if (value == '') {
+				artist.filtered = false;
+			}
+		}
+	});
 });
 
 app.controller('SettingsCtrl', function ($scope) {
 	$('#settings-tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
 	$('#tabs li').removeClass('ui-corner-top').addClass('ui-corner-left');
+
+	$scope.addMediaToLibrary = function() {
+		util.mediaLibraryScanFolder();
+	};
+
+	$scope.clearLibrary = function() {
+		mediaLibrary.emptyLibrary();
+	};
 });
 
 app.controller('PluginsCtrl', function ($scope) {

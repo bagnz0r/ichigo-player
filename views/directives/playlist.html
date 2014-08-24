@@ -1,8 +1,15 @@
 <div ng-model="tracks">
-	<ul>
-		<li ng-repeat="track in tracks" ng-click="setTrack($index);" ng-class="{'selected': $index == currentTrack && active }">
-			{{ track.tags.track_number == undefined ? '' : '[' + track.tags.track_number + '] '}}
-			{{ track.tags.artist == undefined || track.tags.title == undefined ? track.file : track.tags.artist + ' - ' + track.tags.title }}
-		</li>
-	</ul>
+	<div ng-repeat="track in tracks" ng-click="setTrack($index);" ng-class="{'selected': $index == currentTrack && active }" class="track">
+		<div class="track-number">
+			{{ (track.tags.track_number == undefined ? '??' : track.tags.track_number) }}
+		</div>
+		<div class="track-info">
+			<div class="track-artist">
+				{{ (track.tags.artist == undefined ? 'Unknown artist' : track.tags.artist) }}
+			</div>
+			<div class="track-title">
+				{{ (track.tags.title == undefined ? 'Unknown title' : track.tags.title) }}
+			</div>
+		</div>
+	</div>
 </div>

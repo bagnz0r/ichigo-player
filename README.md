@@ -20,4 +20,6 @@ And of course - ichigo-audio repository. Make sure to have one folder setup for 
 Once you have both repositories cloned and everything setup, you must obtain ffi (clone it from its repo into node_modules/ffi folder) and build it for nodewebkit. You can do this by executing:
 nw-gyp rebuild --target=0.8.6
 
+Don't forget to run the same command for every single module as well!
+
 In general - I'm a lazy motherfucker and I don't feel like making a proper readme. Bite me. Maybe I'll bother later.

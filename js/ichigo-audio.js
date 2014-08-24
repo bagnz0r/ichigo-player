@@ -1,9 +1,11 @@
+var isWindowsRelease = true;
+
 var ffi = require('ffi');
 var ref = require('ref');
 var wchar_t = require('ref-wchar');
 var wchar_string = wchar_t.string;
 
-var ichigoAudio = ffi.Library('ichigo-audio', {
+var ichigoAudio = ffi.Library('ichigo-audio.dll', {
 
 	//
 	// Initializes the Ichigo Audio library
@@ -13,7 +15,7 @@ var ichigoAudio = ffi.Library('ichigo-audio', {
 	//
 	// Creates an audio stream from file
 	//
-	'ig_create_stream': ['int', [ 'string' ]], // TODO: For Windows should be wchar_string
+	'ig_create_stream': ['int', [ isWindowsRelease ? wchar_string : 'string' ]],
 
 	//
 	// Creates an audio stream from URL
@@ -86,7 +88,7 @@ var ichigoAudio = ffi.Library('ichigo-audio', {
 	//
 	// Arguments: file_name, tag_format
 	//
-	'ig_read_tag_from_file': ['string', [ 'string', 'string' ]],
+	'ig_read_tag_from_file': ['string', [ isWindowsRelease ? wchar_string : 'string', 'string' ]],
 
 	//
 	// Enables the equalizer

@@ -3,7 +3,7 @@ var playlistActions = {
 	/**
 	 * Skip forward to the next track
 	 */
-	forward: function () {
+	forward: function() {
 		if (currentTrack.index >= playlist.tracks.length || !playing) {
 			return false;
 		}
@@ -22,7 +22,7 @@ var playlistActions = {
 	/**
 	 * Skip backwards to the previous track
 	 */
-	back: function () {
+	back: function() {
 		if (currentTrack.index == 0 || !playing) {
 			return false;
 		}
@@ -41,7 +41,7 @@ var playlistActions = {
 	/**
 	 * Randomly jump to a track
 	 */
-	forwardRand: function () {
+	forwardRand: function() {
 		if (!playing) {
 			return false;
 		}
@@ -60,7 +60,7 @@ var playlistActions = {
 	/**
 	 * Play track at provided index
 	 */
-	playSelectedTrack: function (index) {
+	playSelectedTrack: function(index) {
 		currentTrack = index;
 		playlistActions.playTrackAtCurrentIndex();
 	},
@@ -68,7 +68,7 @@ var playlistActions = {
 	/**
 	 * Play/resume currently paused/prepared track
 	 */
-	play: function () {
+	play: function() {
 		ichigoAudio.ig_play();
 		playing = true;
 	},
@@ -76,7 +76,7 @@ var playlistActions = {
 	/**
 	 * Pause the currently playing track
 	 */
-	pause: function () {
+	pause: function() {
 		ichigoAudio.ig_pause();
 		playing = false;
 	},
@@ -84,7 +84,7 @@ var playlistActions = {
 	/**
 	 * Stops the currently playing track
 	 */
-	stop: function () {
+	stop: function() {
 		if (playing) {
 			// execute plugin actions
 			for (var i in pluginActions.onTrackEnd) {
@@ -100,7 +100,7 @@ var playlistActions = {
 	/**
 	 * Plays a track currently selected index
 	 */
-	playTrackAtCurrentIndex: function () {
+	playTrackAtCurrentIndex: function() {
 		var path = playlist.tracks[currentTrack].file;
 
 		console.log(ichigoAudio.ig_create_stream(path));
@@ -136,7 +136,7 @@ var playlistActions = {
 	/**
 	 * Fill playlist with files (provide an array)
 	 */
-	fillPlaylist: function (files) {
+	fillPlaylist: function(files) {
 		util.showLoadingDialog();
 
 		setTimeout(function() {
@@ -162,7 +162,7 @@ var playlistActions = {
 	/**
 	 * Clears the playlist
 	 */
-	clear: function ($scope) {
+	clear: function($scope) {
 		playlist = {
 			label: 'Default',
 			tracks: []
@@ -172,7 +172,7 @@ var playlistActions = {
 	/**
 	 * Creates playlist contents from file
 	 */
-	createFromFile: function () {
+	createFromFile: function() {
 		util.chooseFile(function (path) {
 			var extension = path.split('.').pop().toLowerCase();
 			switch (extension) {
@@ -192,7 +192,7 @@ var playlistActions = {
 	/**
 	 * Create playlist from M3U.
 	 */
-	createFromM3U: function (path) {
+	createFromM3U: function(path) {
 		var fs = require('fs');
 		fs.readFile(path, 'utf8', function (error, data) {
 			if (error) {
