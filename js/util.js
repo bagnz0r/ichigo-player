@@ -1,6 +1,9 @@
 var util = {
 	choosen: false,
 
+	//
+	// Single file selection dialog
+	//
 	chooseFile: function(callback) {
 		util.chosen = false;
 
@@ -17,6 +20,9 @@ var util = {
 		chooser.click();
 	},
 
+	//
+	// Multiple file selection dialog
+	//
 	chooseMultipleFiles: function(callback) {
 		util.chosen = false;
 
@@ -31,6 +37,9 @@ var util = {
 		chooser.click();
 	},
 
+	//
+	// Folder selection dialog
+	//
 	chooseFolder: function(callback) {
 		util.chosen = false;
 
@@ -47,7 +56,12 @@ var util = {
 		chooser.click();
 	},
 
+	//
+	// Shows loading dialog
+	//
 	showLoadingDialog: function() {
+		busy = true;
+
 		$('#loading-dialog').dialog({
 			width: 560,
 			height: 250,
@@ -57,14 +71,25 @@ var util = {
 		});
 	},
 
+	//
+	// Sets loading dialog status text
+	//
 	setLoadingDialogStatus: function(status) {
 		$('#loading-dialog-text').html(status);
 	},
 
+	//
+	// Closes loading dialog
+	//
 	closeLoadingDialog: function() {
+		busy = false;
+		
 		$('#loading-dialog').dialog('close');
 	},
 
+	//
+	// Parses tags in a provided file
+	//
 	parseTags: function(path) {
 		var tags = {
 			'title': ichigoAudio.ig_read_tag_from_file(path, '%UTF8(%TRM(%TITL))'),
@@ -89,13 +114,16 @@ var util = {
 			}
 
 			if (tags[key] != undefined && tags[key].indexOf('/') > -1 && key == 'track_number') {
-				tags[key] = tags[key].substring(0, tags[key].indexOf('/'));
+				tags[key] = parseInt(tags[key].substring(0, tags[key].indexOf('/')));
 			}
 		}
 
 		return tags;
 	},
 
+	//
+	// Scans folder for compatible files and adds them to media library
+	//
 	mediaLibraryScanFolder: function() {
 		util.getCompatibleFilesInFolder(function(files) {
 			util.showLoadingDialog();
@@ -114,7 +142,8 @@ var util = {
 				util.setLoadingDialogStatus('Parsing tags (' + Math.round(((i + 1) / files.length) * 100) + '%)...');
 				mediaLibrary.addTrack(
 					tags.album == undefined ? 'Unknown' : tags.album,
-					tags.artist == undefined ? 'Unknown' : tags.artist,
+					tags.album_artist == undefined ? (tags.artist == undefined ? 'Unknown' : tags.artist) : tags.album_artist,
+					tags.album_artist == undefined ? undefined : tags.artist,
 					tags.title == undefined ? 'Unknown' : tags.title,
 					tags.track_number == undefined ? 0 : tags.track_number,
 					file,
@@ -122,7 +151,6 @@ var util = {
 						if (i >= (files.length - 1)) {
 							util.setLoadingDialogStatus('Please wait...');
 							util.closeLoadingDialog();
-							// reloadLibrary = true;
 						} else {
 							setTimeout(next, 50);
 						}
@@ -134,6 +162,9 @@ var util = {
 		});
 	},
 
+	//
+	// Looks for compatible files in a folder and returns a list in a callback
+	//
 	getCompatibleFilesInFolder: function(callback) {
 		util.chooseFolder(function(folder) {
 			util.showLoadingDialog();
@@ -145,7 +176,6 @@ var util = {
 			var walker = walk.walk(folder, { followLinks: false});
 			walker.on('file', function(root, stat, next) {
 				util.setLoadingDialogStatus('Looking for files (' + files.length + ')...');
-
 				var fileNameLower = stat.name.toLowerCase();
 				if (fileNameLower.indexOf('.mp3') > -1 || fileNameLower.indexOf('.ogg') > -1 || fileNameLower.indexOf('.m4a') > -1 || fileNameLower.indexOf('.mp4') > -1
 					|| fileNameLower.indexOf('.mpc') > -1 || fileNameLower.indexOf('.wav') > -1 || fileNameLower.indexOf('.flac') > -1 || fileNameLower.indexOf('.wv') > -1) {
@@ -161,25 +191,25 @@ var util = {
 		});
 	},
 
-	addPluginAction: function(eventType, func) {
-		pluginActions[eventType][pluginActions[eventType].length] = func;
-	},
+	//
+	// Creates a list of plugin files.
+	//
+	getPluginFiles: function(callback) {
+		var walk = require('walk');
+		var files = [];
 
-	togglePlugin: function(scope) {
-		localStorage[scope + '.enabled'] = localStorage[scope + '.enabled'] == "true" ? false : true;
-		return localStorage[scope + '.enabled'];
-	},
-
-	isPluginEnabled: function(scope) {
-		return localStorage[scope + '.enabled'] == "true" ? true : false;
-	},
-	
-	sleep: function(milliseconds) {
-		var start = new Date().getTime();
-		for (var i = 0; i < 1e7; i++) {
-			if ((new Date().getTime() - start) > milliseconds) {
-				break;
+		var walker = walk.walk('plugins', { followLinks: false});
+		walker.on('file', function(root, stat, next) {
+			var fileNameLower = stat.name.toLowerCase();
+			if (fileNameLower == 'ichigo-plugin.js') {
+				files.push(root + '/' + stat.name);
 			}
-		}
+
+			next();
+		});
+
+		walker.on('end', function() {
+			callback(files);
+		});
 	}
 };

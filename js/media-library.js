@@ -2,26 +2,26 @@ var mediaLibrary = {
 	database: 0,
 
 	initialize: function() {
-		this.database = openDatabase('ichigo-media-library', '1.0', 'Ichigo media library', 16 * 1024 * 1024);
+		this.database = openDatabase('ichigo-audio-database', '1.0', 'Ichigo media library', 16 * 1024 * 1024);
 		this.database.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS artists (id integer primary key autoincrement, name)');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS albums (id integer primary key autoincrement, artist_id int, title)');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS tracks (id integer primary key autoincrement, album_id int, track_number int, title, path)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS albums (id integer primary key autoincrement, artist_id int, artist, title)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS tracks (id integer primary key autoincrement, album_id int, track_number int, artist, title, path)');
 		});
 	},
 
-	addTrack: function(album, artist, title, trackNumber, path, callback) {
+	addTrack: function(album, artist, contributingArtist, title, trackNumber, path, callback) {
 		var insertAlbumData = function(artistId, tx) {
 			// Look for the album.
-			tx.executeSql('SELECT * FROM albums WHERE title = ?', [album], function(tx, results) {
+			tx.executeSql('SELECT * FROM albums WHERE title = ? AND artist = ?', [album, artist], function(tx, results) {
 				console.log('Album: ' + results.rows.length);
 				// If none was found, add a new row.
 				if (results.rows.length == 0) {
-					tx.executeSql('INSERT INTO albums(\'artist_id\', \'title\') VALUES(?, ?)', [artistId, album], function(tx, results) {
+					tx.executeSql('INSERT INTO albums(\'artist_id\', \'artist\', \'title\') VALUES(?, ?, ?)', [artistId, artist, album], function(tx, results) {
 						var albumId = results.insertId;
 
 						// Insert track.
-						tx.executeSql('INSERT INTO tracks(\'album_id\', \'track_number\', \'title\', \'path\') VALUES(?, ?, ?, ?)', [albumId, trackNumber, title, path], function(tx, results) {
+						tx.executeSql('INSERT INTO tracks(\'album_id\', \'track_number\', \'artist\', \'title\', \'path\') VALUES(?, ?, ?, ?, ?)', [albumId, trackNumber, contributingArtist != undefined ? contributingArtist : artist, title, path], function(tx, results) {
 							callback(true); return;
 						}, function(error) {
 							callback(false); return;
@@ -33,7 +33,7 @@ var mediaLibrary = {
 					var albumId = results.rows.item(0).id;
 
 					// Insert track.
-					tx.executeSql('INSERT INTO tracks(\'album_id\', \'track_number\', \'title\', \'path\') VALUES(?, ?, ?, ?)', [albumId, trackNumber, title, path], function(tx, results) {
+					tx.executeSql('INSERT INTO tracks(\'album_id\', \'track_number\', \'artist\', \'title\', \'path\') VALUES(?, ?, ?, ?, ?)', [albumId, trackNumber, contributingArtist != undefined ? contributingArtist : artist, title, path], function(tx, results) {
 						callback(true); return;
 					}, function(error) {
 						callback(false); return;

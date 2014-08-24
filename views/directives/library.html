@@ -8,7 +8,7 @@
 	</div>
 	<div class="list" ng-hide="!artists.length">
 		<div class="artists">
-			<div ng-repeat="artist in artists" ng-class="showAlbum ? 'artist selected' : 'artist'" ng-hide="artist.filtered">
+			<div ng-repeat="artist in artists | filter: searchFilter" ng-class="showAlbum ? 'artist selected' : 'artist'">
 				<div class="chevrons">
 					<i class="fa fa-chevron-right" ng-hide="showAlbum"></i>
 					<i class="fa fa-chevron-down" ng-hide="!showAlbum"></i>

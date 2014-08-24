@@ -1,6 +1,7 @@
 var app = angular.module('ichigo', ['ngRoute', 'ngCookies', 'ngAnimate']);
 
 var pluginActions = {
+	onInitialize: [],
 	onTrackBegin: [],
 	onTrackEnd: [],
 	onTrackPositionUpdate: [],
@@ -12,8 +13,10 @@ var playlist = {
 	label: 'Default',
 	tracks: []
 };
+
 var currentTrack = -1;
 var playing = false;
+var busy = false;
 
  //   ____             __ _       
  //  / ___|___  _ __  / _(_) __ _ 
@@ -128,6 +131,8 @@ new gui.MenuItem({
 fileMenu.append(new gui.MenuItem({
 		label: 'Open',
 		click: function() {
+			if (busy) return;
+
 			util.chooseFile(function(path) {
 				playlistActions.stop();
 				playlistActions.clear();
@@ -140,6 +145,8 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'Add files',
 		click: function() {
+			if (busy) return;
+
 			util.chooseMultipleFiles(function(files) {
 				playlistActions.fillPlaylist(files);
 			});
@@ -149,6 +156,8 @@ fileMenu.append(new gui.MenuItem({
 fileMenu.append(new gui.MenuItem({
 		label: 'Add folder',
 		click: function() {
+			if (busy) return;
+
 			util.getCompatibleFilesInFolder(function(files) {
 				playlistActions.fillPlaylist(files);
 				util.closeLoadingDialog();
@@ -160,6 +169,8 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'New playlist',
 		click: function() {
+			if (busy) return;
+
 			playlistActions.stop();
 			playlistActions.clear();
 		}
@@ -168,6 +179,8 @@ fileMenu.append(new gui.MenuItem({
 fileMenu.append(new gui.MenuItem({
 		label: 'Open playlist',
 		click: function() {
+			if (busy) return;
+
 			playlistActions.stop();
 			playlistActions.clear();
 			playlistActions.createFromFile();
@@ -177,6 +190,7 @@ fileMenu.append(new gui.MenuItem({
 fileMenu.append(new gui.MenuItem({
 		label: 'Save playlist',
 		click: function() {
+			if (busy) return;
 		}
 	}
 ));
@@ -184,6 +198,7 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'Settings',
 		click: function() {
+			if (busy) return;
 			document.location = '#/settings';
 		}
 	}
@@ -192,6 +207,7 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'Exit',
 		click: function() {
+			if (busy) return;
 		}
 	}
 ));
@@ -206,6 +222,8 @@ fileMenu.append(new gui.MenuItem({
 viewMenu.append(new gui.MenuItem({
 		label: 'Equalizer',
 		click: function() {
+			if (busy) return;
+
 			$('#equalizer-dialog').dialog({
 				width: 850,
 				height: 180,
@@ -223,6 +241,7 @@ viewMenu.append(new gui.MenuItem({
 viewMenu.append(new gui.MenuItem({
 		label: 'Visualizations',
 		click: function() {
+			if (busy) return;
 		}
 	}
 ));
@@ -238,6 +257,8 @@ viewMenu.append(new gui.MenuItem({
 playbackMenu.append(new gui.MenuItem({
 		label: 'Stop',
 		click: function() {
+			if (busy) return;
+
 			playlistActions.stop();
 		}
 	}
@@ -245,6 +266,8 @@ playbackMenu.append(new gui.MenuItem({
 playbackMenu.append(new gui.MenuItem({
 		label: 'Play',
 		click: function() {
+			if (busy) return;
+
 			playlistActions.play();
 		}
 	}
@@ -252,6 +275,8 @@ playbackMenu.append(new gui.MenuItem({
 playbackMenu.append(new gui.MenuItem({
 		label: 'Pause',
 		click: function() {
+			if (busy) return;
+
 			playlistActions.pause();
 		}
 	}
@@ -260,6 +285,8 @@ playbackMenu.append(new gui.MenuItem({ type: 'separator' }));
 playbackMenu.append(new gui.MenuItem({
 		label: 'Previous',
 		click: function() {
+			if (busy) return;
+
 			playlistActions.back();
 		}
 	}
@@ -267,6 +294,8 @@ playbackMenu.append(new gui.MenuItem({
 playbackMenu.append(new gui.MenuItem({
 		label: 'Next',
 		click: function() {
+			if (busy) return;
+
 			playlistActions.forward();
 		}
 	}
@@ -274,6 +303,8 @@ playbackMenu.append(new gui.MenuItem({
 playbackMenu.append(new gui.MenuItem({
 		label: 'Random',
 		click: function() {
+			if (busy) return;
+
 			playlistActions.forwardRand();
 		}
 	}
@@ -290,6 +321,8 @@ playbackMenu.append(new gui.MenuItem({
 helpMenu.append(new gui.MenuItem({
 		label: 'About Ichigo',
 		click: function() {
+			if (busy) return;
+			
 			$('#about-dialog').dialog({
 				width: 400,
 				height: 450,
@@ -314,8 +347,11 @@ win.menu = menubar;
  // | |__| (_) | | | | |_| | | (_) | | |  __/ |  \__ \
  //  \____\___/|_| |_|\__|_|  \___/|_|_|\___|_|  |___/
                                                    
-app.controller('HomeCtrl', function ($scope) {
-	if (!$scope.initialized) {
+var initialized = false;
+app.controller('HomeCtrl', function($scope) {
+	if (!initialized) {
+
+		// Show "alpha dialog"
 		$('#alpha-dialog').dialog({
 			width: 500,
 			height: 200,
@@ -323,15 +359,32 @@ app.controller('HomeCtrl', function ($scope) {
 			resizable: false,
 			draggable: false
 		});
-
 		$('#alpha-dialog button').click(function() {
 			$('#alpha-dialog').dialog('close');
 		});
 
+		// Initialize media library.
 		mediaLibrary.initialize();
+
+		// Initialize plugins.
+		util.getPluginFiles(function(files) {
+			for (var i = 0; i < files.length; i++) {
+				console.log('Loading plugin ' + files[i]);
+				plugin.loadPluginAsset(files[i], 'js');
+
+				if (i >= (files.length - 1)) {
+					setTimeout(function() {
+						for (var key in pluginActions.onInitialize) {
+							pluginActions.onInitialize[key]();
+						}
+					}, 3000);
+				}
+			}
+		});
+
 	}
 
-	$scope.initialized = true;
+	initialized = true;
 });
 
 app.controller('EqualizerCtrl', function ($scope) {
@@ -493,6 +546,7 @@ app.controller('LibraryCtrl', function($scope) {
 	$scope.selectedTrackList = -1;
 	$scope.selectedTrack = -1;
 
+	// This menu will pop up when the user right-clicks on an album
 	var albumMenu = new gui.Menu();
 	albumMenu.append(new gui.MenuItem({
 			label: 'Send to playlist',
@@ -511,6 +565,7 @@ app.controller('LibraryCtrl', function($scope) {
 		}
 	));
 
+	// This menu will pop up when the user right-clicks on a track
 	var trackMenu = new gui.Menu();
 	trackMenu.append(new gui.MenuItem({
 			label: 'Send to playlist',
@@ -520,29 +575,14 @@ app.controller('LibraryCtrl', function($scope) {
 		}
 	));
 
+	// This function will be called when artist object is collapsed
 	var setAlbums = function(artist) {
 		mediaLibrary.getAlbums(artist.id, function(albums) {
 			artist.albums = albums;
 		});
 	};
 
-	mediaLibrary.getArtists(function(result) {
-		$scope.artists = result ? result : [];
-		for (var i = 0; i < $scope.artists.length; i++) {
-			setAlbums($scope.artists[i]);
-		}
-	});
-
-	$scope.spawnAlbumMenu = function(event, tracks) {
-		$scope.selectedTrackList = tracks;
-		albumMenu.popup(event.x, event.y);
-	};
-
-	$scope.spawnTrackMenu = function(event, path) {
-		$scope.selectedTrack = path;
-		trackMenu.popup(event.x, event.y);
-	};
-
+	// This scope function will set tracks for a specific album.
 	$scope.setTracks = function(album) {
 		if (album.tracks != undefined) return;
 
@@ -553,19 +593,29 @@ app.controller('LibraryCtrl', function($scope) {
 		});
 	};
 
+	// This scope function will spawn the album menu on right click.
+	$scope.spawnAlbumMenu = function(event, tracks) {
+		$scope.selectedTrackList = tracks;
+		albumMenu.popup(event.x, event.y);
+	};
+
+	// This scope function will spawn the track menu on right click.
+	$scope.spawnTrackMenu = function(event, path) {
+		$scope.selectedTrack = path;
+		trackMenu.popup(event.x, event.y);
+	};
+
+	// Album search filter.
 	$scope.searchInput = '';
-	$scope.$watch('searchInput', function(value) {
-		console.log(value);
-		for (var key in $scope.artists) {
-			var artist = $scope.artists[key];
-			artist.filtered = false;
-			
-			if (!artist.name.match(value) && value != '') {
-				artist.filtered = true;
-			}
-			if (value == '') {
-				artist.filtered = false;
-			}
+	$scope.searchFilter = function(obj) {
+		return $scope.searchInput != '' ? obj.name.match($scope.searchInput) : true;
+	}
+
+
+	mediaLibrary.getArtists(function(result) {
+		$scope.artists = result ? result : [];
+		for (var i = 0; i < $scope.artists.length; i++) {
+			setAlbums($scope.artists[i]);
 		}
 	});
 });
@@ -594,8 +644,8 @@ app.controller('PluginsCtrl', function ($scope) {
 	$scope.isEnabled = false;
 
 	$scope.togglePlugin = function () {
-		util.togglePlugin(plugins[$scope.currentPlugin].scope);
-		$scope.isEnabled = util.isPluginEnabled(plugins[$scope.currentPlugin].scope);
+		plugin.togglePlugin(plugins[$scope.currentPlugin].scope);
+		$scope.isEnabled = plugin.isPluginEnabled(plugins[$scope.currentPlugin].scope);
 	};
 
 	$scope.configurePlugin = function () {
@@ -604,6 +654,6 @@ app.controller('PluginsCtrl', function ($scope) {
 
 	$scope.setPlugin = function (index) {
 		$scope.currentPlugin = index;
-		$scope.isEnabled = util.isPluginEnabled(plugins[$scope.currentPlugin].scope);
+		$scope.isEnabled = plugin.isPluginEnabled(plugins[$scope.currentPlugin].scope);
 	};
 });

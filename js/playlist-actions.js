@@ -1,8 +1,8 @@
 var playlistActions = {
 
-	/**
-	 * Skip forward to the next track
-	 */
+	//
+	// Skip forward to the next track
+	//
 	forward: function() {
 		if (currentTrack.index >= playlist.tracks.length || !playing) {
 			return false;
@@ -19,9 +19,9 @@ var playlistActions = {
 		return true;
 	},
 
-	/**
-	 * Skip backwards to the previous track
-	 */
+	//
+	// Skip backwards to the previous track
+	//
 	back: function() {
 		if (currentTrack.index == 0 || !playing) {
 			return false;
@@ -38,9 +38,9 @@ var playlistActions = {
 		return true;
 	},
 
-	/**
-	 * Randomly jump to a track
-	 */
+	//
+	// Randomly jump to a track
+	//
 	forwardRand: function() {
 		if (!playing) {
 			return false;
@@ -57,33 +57,33 @@ var playlistActions = {
 		return true;
 	},
 
-	/**
-	 * Play track at provided index
-	 */
+	//
+	// Play track at provided index
+	//
 	playSelectedTrack: function(index) {
 		currentTrack = index;
 		playlistActions.playTrackAtCurrentIndex();
 	},
 
-	/**
-	 * Play/resume currently paused/prepared track
-	 */
+	//
+	// Play/resume currently paused/prepared track
+	//
 	play: function() {
 		ichigoAudio.ig_play();
 		playing = true;
 	},
 
-	/**
-	 * Pause the currently playing track
-	 */
+	//
+	// Pause the currently playing track
+	//
 	pause: function() {
 		ichigoAudio.ig_pause();
 		playing = false;
 	},
 
-	/**
-	 * Stops the currently playing track
-	 */
+	//
+	// Stops the currently playing track
+	//
 	stop: function() {
 		if (playing) {
 			// execute plugin actions
@@ -97,9 +97,9 @@ var playlistActions = {
 		playing = false;
 	},
 
-	/**
-	 * Plays a track currently selected index
-	 */
+	//
+	// Plays a track currently selected index
+	//
 	playTrackAtCurrentIndex: function() {
 		var path = playlist.tracks[currentTrack].file;
 
@@ -133,9 +133,9 @@ var playlistActions = {
 		}
 	},
 
-	/**
-	 * Fill playlist with files (provide an array)
-	 */
+	//
+	// Fill playlist with files (provide an array)
+	//
 	fillPlaylist: function(files) {
 		util.showLoadingDialog();
 
@@ -159,9 +159,9 @@ var playlistActions = {
 		}, 1000);
 	},
 
-	/**
-	 * Clears the playlist
-	 */
+	//
+	// Clears the playlist
+	//
 	clear: function($scope) {
 		playlist = {
 			label: 'Default',
@@ -169,9 +169,9 @@ var playlistActions = {
 		};
 	},
 
-	/**
-	 * Creates playlist contents from file
-	 */
+	//
+	// Creates playlist contents from file
+	//
 	createFromFile: function() {
 		util.chooseFile(function (path) {
 			var extension = path.split('.').pop().toLowerCase();
@@ -189,9 +189,9 @@ var playlistActions = {
 		});
 	},
 
-	/**
-	 * Create playlist from M3U.
-	 */
+	//
+	// Create playlist from M3U.
+	//
 	createFromM3U: function(path) {
 		var fs = require('fs');
 		fs.readFile(path, 'utf8', function (error, data) {
