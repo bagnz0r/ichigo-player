@@ -14,6 +14,8 @@ var playlist = {
 	tracks: []
 };
 
+var themes = [];
+
 var currentTrack = -1;
 var playing = false;
 var busy = false;
@@ -383,6 +385,20 @@ app.controller('HomeCtrl', function($scope) {
 			}
 		});
 
+		// Initialize themes.
+		if (!localStorage['currentTheme']) {
+			localStorage['currentTheme'] = 'default';
+		}
+		util.getThemeFolders(function(folders) {
+			for (var i = 0; i < folders.length; i++) {
+				var theme = folders[i].replace('.ith', '');
+				themes.push(theme);
+
+				if (localStorage['currentTheme'] == theme) {
+					util.reloadTheme(theme);
+				}
+			}
+		});
 	}
 
 	initialized = true;
@@ -672,7 +688,7 @@ app.controller('LibraryCtrl', function($scope) {
 	});
 });
 
-app.controller('SettingsCtrl', function ($scope) {
+app.controller('SettingsCtrl', function($scope) {
 	$('#settings-tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
 	$('#tabs li').removeClass('ui-corner-top').addClass('ui-corner-left');
 
@@ -685,7 +701,7 @@ app.controller('SettingsCtrl', function ($scope) {
 	};
 });
 
-app.controller('PluginsCtrl', function ($scope) {
+app.controller('PluginsCtrl', function($scope) {
 	var plugins = [];
 	for (index in pluginActions.onGetInfo) {
 		plugins[index] = pluginActions.onGetInfo[index]();
@@ -695,17 +711,29 @@ app.controller('PluginsCtrl', function ($scope) {
 	$scope.currentPlugin = -1;
 	$scope.isEnabled = false;
 
-	$scope.togglePlugin = function () {
+	$scope.togglePlugin = function() {
 		plugin.togglePlugin(plugins[$scope.currentPlugin].scope);
 		$scope.isEnabled = plugin.isPluginEnabled(plugins[$scope.currentPlugin].scope);
 	};
 
-	$scope.configurePlugin = function () {
+	$scope.configurePlugin = function() {
 		pluginActions.onConfigure[index]();
 	}
 
-	$scope.setPlugin = function (index) {
+	$scope.setPlugin = function(index) {
 		$scope.currentPlugin = index;
 		$scope.isEnabled = plugin.isPluginEnabled(plugins[$scope.currentPlugin].scope);
 	};
+});
+
+app.controller('ThemesCtrl', function($scope) {
+	$scope.themes = themes;
+	$scope.currentTheme = -1;
+
+	$scope.setTheme = function(index) {
+		$scope.currentThem = index;
+		localStorage['currentTheme'] = themes[index];
+		
+		util.reloadTheme(themes[index]);
+	}
 });

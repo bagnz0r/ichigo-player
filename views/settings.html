@@ -2,7 +2,7 @@
 	<div id="settings-tabs">
 		<ul>
 			<li><a href="#s-plugins">Plugins</a></li>
-			<li><a href="#s-theme">Theme</a></li>
+			<li><a href="#s-theme">Themes</a></li>
 			<li><a href="#s-library">Library</a></li>
 			<li><a href="#s-playback">Playback</a></li>
 		</ul>
@@ -45,8 +45,14 @@
 		</div>
 
 		<div id="s-theme">
-			<h1>Theme</h1>
-			(Unimplemented)
+			<h1>Themes</h1>
+			<div class="themes" ng-model="themes">
+				<ul>
+					<li ng-repeat="theme in themes" ng-click="setTheme($index);" ng-class="{'selected': $index == currentTheme }">
+						{{ theme }}
+					</li>
+				</ul>
+			</div>
 		</div>
 
 		<div id="s-library">

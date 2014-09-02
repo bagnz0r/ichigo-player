@@ -211,5 +211,55 @@ var util = {
 		walker.on('end', function() {
 			callback(files);
 		});
+	},
+
+	//
+	// Creates a list of theme folders.
+	//
+	getThemeFolders: function(callback) {
+		var walk = require('walk');
+		var files = [];
+
+		var walker = walk.walk('style/themes', { followLinks: false});
+		walker.on('file', function(root, stat, next) {
+			var fileNameLower = stat.name.toLowerCase();
+			if (fileNameLower.indexOf('.ith') > -1) {
+				files.push(stat.name);
+			}
+
+			next();
+		});
+
+		walker.on('end', function() {
+			callback(files);
+		});
+	},
+
+	//
+	// Loads assets.
+	//
+	loadAsset: function(path, type) {
+		if (type == 'js') {
+			var elem = document.createElement('script');
+			elem.setAttribute('type', 'text/javascript');
+			elem.setAttribute('src', path);
+		} else if (type == 'css') {
+			var elem = document.createElement('link');
+			elem.setAttribute('rel', 'stylesheet');
+			elem.setAttribute('type', 'text/css');
+			elem.setAttribute('href', path);
+		}
+
+		if (elem != undefined) {
+			document.getElementsByTagName('head')[0].appendChild(elem);
+		}
+	},
+
+	//
+	// Reloads current theme.
+	//
+	reloadTheme: function(theme) {
+		util.loadAsset('style/themes/' + theme + '.ith/style.css', 'css');
+		util.loadAsset('style/themes/' + theme + '.ith/jquery-ui.css', 'css');
 	}
 };

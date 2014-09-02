@@ -26,20 +26,7 @@ var plugin = {
 	// Loads asset for the plugin
 	//
 	loadPluginAsset: function(path, type) {
-		if (type == 'js') {
-			var elem = document.createElement('script');
-			elem.setAttribute('type', 'text/javascript');
-			elem.setAttribute('src', path);
-		} else if (type == 'css') {
-			var elem = document.createElement('link');
-			elem.setAttribute('rel', 'stylesheet');
-			elem.setAttribute('type', 'text/css');
-			elem.setAttribute('href', path);
-		}
-
-		if (elem != undefined) {
-			document.getElementsByTagName('head')[0].appendChild(elem);
-		}
+		util.loadAsset(path, type);
 	}
 	
 };
