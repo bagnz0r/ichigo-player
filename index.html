@@ -26,9 +26,35 @@
 	<link rel="stylesheet" href="components/jquery-ui/jquery-ui.structure.css">
 	<link rel="stylesheet" href="components/jquery-ui/jquery-ui.theme.css">
 
+	<link rel="stylesheet" href="style/themes/default/style.css" id="theme-style">
+	<link rel="stylesheet" href="style/themes/default/jquery-ui.css" id="theme-jquery-ui">
+
 	<link rel="icon" href="icon.ico" type="image/x-icon">
+
+	<style type="text/css">
+		#startup {
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			z-index: 9001;
+			background: #fff;
+		}
+
+		#startup img {
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			margin-left: -64px;
+			margin-top: -64px;
+			z-index: 9002;
+		}
+	</style>
 </head>
 <body>
+	<div id="startup"><img src="images/loading.gif" alt=""></div>
+
 	<!-- Some hidden controls -->
 	<input type="file" id="file" class="hidden">
 	<input type="file" id="file-multiple" class="hidden" multiple>

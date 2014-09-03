@@ -1,11 +1,11 @@
-var isWindowsRelease = true;
+var isWindowsRelease = false;
 
 var ffi = require('ffi');
 var ref = require('ref');
 var wchar_t = require('ref-wchar');
 var wchar_string = wchar_t.string;
 
-var ichigoAudio = ffi.Library('ichigo-audio.dll', {
+var ichigoAudio = ffi.Library('ichigo-audio.dylib', {
 
 	//
 	// Initializes the Ichigo Audio library

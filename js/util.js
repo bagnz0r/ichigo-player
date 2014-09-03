@@ -223,7 +223,7 @@ var util = {
 		var walker = walk.walk('style/themes', { followLinks: false});
 		walker.on('file', function(root, stat, next) {
 			var fileNameLower = stat.name.toLowerCase();
-			if (fileNameLower.indexOf('.ith') > -1) {
+			if (fileNameLower.indexOf('.theme') > -1) {
 				files.push(stat.name);
 			}
 
@@ -259,7 +259,7 @@ var util = {
 	// Reloads current theme.
 	//
 	reloadTheme: function(theme) {
-		util.loadAsset('style/themes/' + theme + '.ith/style.css', 'css');
-		util.loadAsset('style/themes/' + theme + '.ith/jquery-ui.css', 'css');
+		$('#theme-style').attr('src', 'style/themes/' + theme + '/style.css', 'css');
+		$('#theme-jquery-ui').attr('src', 'style/themes/' + theme + '/jquery-ui.css', 'css');
 	}
 };

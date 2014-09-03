@@ -9,7 +9,7 @@
 		"height": 640,
 		"min_width": 1024,
 		"min_height": 600,
-		"toolbar": false,
+		"toolbar": true,
 		"icon": "icon128.png"
 	}
 }

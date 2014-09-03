@@ -355,16 +355,20 @@ app.controller('HomeCtrl', function($scope) {
 	if (!initialized) {
 
 		// Show "alpha dialog"
-		$('#alpha-dialog').dialog({
-			width: 500,
-			height: 200,
-			modal: true,
-			resizable: false,
-			draggable: false
-		});
-		$('#alpha-dialog button').click(function() {
-			$('#alpha-dialog').dialog('close');
-		});
+		setTimeout(function() {
+			$('#alpha-dialog').dialog({
+				width: 500,
+				height: 200,
+				modal: true,
+				resizable: false,
+				draggable: false
+			});
+			$('#alpha-dialog button').click(function() {
+				$('#alpha-dialog').dialog('close');
+			});
+
+			$('#startup').fadeOut();
+		}, 1000);
 
 		// Initialize media library.
 		mediaLibrary.initialize();
@@ -391,7 +395,7 @@ app.controller('HomeCtrl', function($scope) {
 		}
 		util.getThemeFolders(function(folders) {
 			for (var i = 0; i < folders.length; i++) {
-				var theme = folders[i].replace('.ith', '');
+				var theme = folders[i].replace('.theme', '');
 				themes.push(theme);
 
 				if (localStorage['currentTheme'] == theme) {
