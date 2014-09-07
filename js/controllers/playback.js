@@ -75,13 +75,19 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 		{
 			// Try to skip the track.
 			if (playing) {
+				if (playlist.tracks[currentTrack].libraryId) {
+					playlist.tracks[currentTrack].listened = true;
+					mediaLibrary.setTrackListened(playlist.tracks[currentTrack].libraryId, function(result) {
+						console.log('Library: Track listen status update: ' + result);
+					});
+				}
+
 				if (!playlistActions.forward()) {
 					playlistActions.stop();
 				}
 			}
 			else
 			{
-				// Continue otherwise.
 				scrollElement.slider('option', 'disabled', true);
 				if ($('title').text() != 'Ichigo') {
 					$('title').text('Ichigo');

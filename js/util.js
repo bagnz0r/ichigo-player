@@ -261,5 +261,12 @@ var util = {
 	reloadTheme: function(theme) {
 		$('#theme-style').attr('src', 'style/themes/' + theme + '/style.css', 'css');
 		$('#theme-jquery-ui').attr('src', 'style/themes/' + theme + '/jquery-ui.css', 'css');
+	},
+
+	//
+	// Returns random int.
+	//
+	getRandomInt: function(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
 	}
 };

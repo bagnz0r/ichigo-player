@@ -57,9 +57,8 @@ fileMenu.append(new gui.MenuItem({
 			if (busy) return;
 
 			util.chooseFile(function(path) {
-				playlistActions.stop();
 				playlistActions.clear();
-				playlistActions.fillPlaylist(file);
+				playlistActions.fillPlaylist([path]);
 			});
 		}
 	}

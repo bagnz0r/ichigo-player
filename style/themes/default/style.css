@@ -186,6 +186,7 @@ div.dialog button {
 }
 #about-dialog a, #alpha-dialog a {
   color: #24cdee;
+  outline: none !important;
 }
 #about-dialog a:hover, #alpha-dialog a:hover {
   text-decoration: none;
@@ -336,7 +337,6 @@ aside.library div.library div.search-chevrons {
   top: -6px;
 }
 aside.library div.library div.filter {
-  position: relative;
   background: #fff;
   width: 100%;
   -moz-box-sizing: border-box;
@@ -345,7 +345,6 @@ aside.library div.library div.filter {
   opacity: 1;
   padding: 6px 0;
   margin: -10px auto 10px auto;
-  border-bottom: 1px solid #ddd;
 }
 aside.library div.library div.filter input {
   width: 100%;
@@ -365,7 +364,7 @@ aside.library div.library div.list {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   overflow: auto;
-  height: 100%;
+  height: 96%;
 }
 aside.library div.library div.album, aside.library div.library div.track {
   margin: 2px 5px;
@@ -377,6 +376,9 @@ aside.library div.library div.track {
 aside.library div.library div.track:hover {
   background: #fff !important;
   border: 1px solid #ccc;
+}
+aside.library div.library div.track i.warning {
+  float: right;
 }
 aside.library div.library div.artist, aside.library div.library div.album, aside.library div.library div.track {
   margin: 2px 0;
@@ -413,6 +415,9 @@ aside.library div.library div.artist.selected, aside.library div.library div.alb
   background: #f8f8f8;
   border: 1px solid #ccc;
 }
+aside.library div.library div.artist.notListened, aside.library div.library div.album.notListened, aside.library div.library div.track.notListened {
+  color: #000;
+}
 aside.library div.library div.artist div.chevrons, aside.library div.library div.album div.chevrons, aside.library div.library div.track div.chevrons {
   display: inline-block;
   width: 16px;
@@ -420,6 +425,8 @@ aside.library div.library div.artist div.chevrons, aside.library div.library div
 }
 aside.library div.library div.artist span, aside.library div.library div.album span, aside.library div.library div.track span {
   text-overflow: ellipsis;
+  width: 88%;
+  display: inline-block;
 }
 
 div.plugins div, div.themes div {
@@ -518,6 +525,9 @@ div.playlist div.track.selected, div.plugins div.track.selected, div.themes div.
   background: #f6f6f6;
   color: #666;
   border: 1px solid #ccc;
+}
+div.playlist div.track.notListened, div.plugins div.track.notListened, div.themes div.track.notListened {
+  color: #000;
 }
 div.playlist div.track:hover, div.plugins div.track:hover, div.themes div.track:hover {
   background: #eaeaea;

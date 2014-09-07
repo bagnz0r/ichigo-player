@@ -152,18 +152,36 @@ var playlistActions = {
 		setTimeout(function() {
 			var count = 0;
 			for (var i in files) {
-				var path = files[i].trim();
-				var tags = util.parseTags(path);
+				if (typeof files[i] === 'object') {
+					var path = files[i].path.trim();
+					var tags = util.parseTags(path);
 
-				playlist.tracks[playlist.tracks.length] = {
-					'file': path,
-					'tags': tags
-				};
+					playlist.tracks[playlist.tracks.length] = {
+						'file': path,
+						'tags': tags,
+						'libraryId': files[i].libraryId,
+						'listened': files[i].listened
+					};
 
-				count++;
+					count++;
 
-				if (count == files.length) {
-					util.closeLoadingDialog();
+					if (count == files.length) {
+						util.closeLoadingDialog();
+					}
+				} else {
+					var path = files[i].trim();
+					var tags = util.parseTags(path);
+
+					playlist.tracks[playlist.tracks.length] = {
+						'file': path,
+						'tags': tags
+					};
+
+					count++;
+
+					if (count == files.length) {
+						util.closeLoadingDialog();
+					}
 				}
 			}
 		}, 500);
@@ -173,6 +191,8 @@ var playlistActions = {
 	// Clears the playlist
 	//
 	clear: function($scope) {
+		playlistActions.stop();
+		
 		playlist = {
 			label: 'Default',
 			tracks: []

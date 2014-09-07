@@ -52,4 +52,11 @@ app.controller('PlaylistCtrl', function($scope) {
 		$scope.trackIndex = index;
 		trackMenu.popup(event.x, event.y);
 	};
+
+	$scope.getClasses = function($index, track) {
+		var classes = track.listened == undefined || track.listened ? '' : 'notListened';
+		classes += $index == $scope.currentTrack && $scope.active ? ' selected' : '';
+
+		return classes;
+	}
 });

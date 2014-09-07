@@ -1,6 +1,8 @@
 app.controller('LibraryCtrl', function($scope) {
 	// height hack
-	var heightHack = function() { $('aside.library').css('height', $('body').height() - 78); };
+	var heightHack = function() { 
+		$('aside.library').css('height', $('body').height() - 78); 
+	};
 	heightHack();
 	$(window).resize(function() {
 		heightHack();
@@ -9,21 +11,95 @@ app.controller('LibraryCtrl', function($scope) {
 	$scope.selectedTrackList = -1;
 	$scope.selectedTrack = -1;
 
+	// This menu will pop up when the user right-clicks on any libraryitem
+	var getRandomAlbum = function(callback) {
+		mediaLibrary.getArtists(function(result) {
+			var artists = result ? result : [];
+			if (artists.length) {
+				var randomArtist = artists[util.getRandomInt(0, artists.length)];
+				mediaLibrary.getAlbums(randomArtist.id, function(albums) {
+					if (albums.length) {
+						var randomAlbum = albums[util.getRandomInt(0, albums.length)];
+
+						mediaLibrary.getTracks(randomAlbum.id, function(tracks) {
+							randomAlbum.tracks = tracks;
+
+							if (randomAlbum.tracks.length) {
+								var files = [];
+								for (var i = 0; i < randomAlbum.tracks.length; i++) {
+									files[i] = {
+										'libraryId': randomAlbum.tracks[i].id,
+										'path': randomAlbum.tracks[i].path,
+										'listened': randomAlbum.tracks[i].listened,
+									};
+
+									if (i >= (randomAlbum.tracks.length - 1)) {
+										callback(files);
+									}
+								}
+							}
+						});
+					}
+				});
+			}
+		});
+	};
+	var libraryMenu = new gui.Menu();
+	libraryMenu.append(new gui.MenuItem({
+			label: 'Replace playlist with random album',
+			click: function() {
+				getRandomAlbum(function(files) {
+					playlistActions.clear();
+					playlistActions.fillPlaylist(files);
+				});
+			}
+		}
+	));
+	libraryMenu.append(new gui.MenuItem({
+			label: 'Add random album to playlist',
+			click: function() {
+				getRandomAlbum(function(files) {
+					playlistActions.fillPlaylist(files);
+				});
+			}
+		}
+	));
+
 	// This menu will pop up when the user right-clicks on an album
+	var getAlbum = function(callback) {
+		if ($scope.selectedTrackList) {
+			var files = [];
+			for (var i = 0; i < $scope.selectedTrackList.length; i++) {
+				console.log($scope.selectedTrackList[i]);
+				files[i] = {
+					'libraryId': $scope.selectedTrackList[i].id,
+					'path': $scope.selectedTrackList[i].path,
+					'listened': $scope.selectedTrackList[i].listened
+				};
+
+				if (i >= ($scope.selectedTrackList.length - 1)) {
+					callback(files);
+				}
+			}
+		}
+	};
 	var albumMenu = new gui.Menu();
 	albumMenu.append(new gui.MenuItem({
-			label: 'Send to playlist',
+			label: 'Replace the playlist',
 			click: function() {
-				if ($scope.selectedTrackList) {
-					var files = [];
-					for (var i = 0; i < $scope.selectedTrackList.length; i++) {
-						files[i] = $scope.selectedTrackList[i].path;
-
-						if (i >= ($scope.selectedTrackList.length - 1)) {
-							playlistActions.fillPlaylist(files);
-						}
-					}
-				}
+				getAlbum(function(files) {
+					playlistActions.clear();
+					playlistActions.fillPlaylist(files);
+				});
+			}
+		}
+	));
+	albumMenu.append(new gui.MenuItem({
+			label: 'Add to playlist',
+			click: function() {
+				getAlbum(function(files) {
+					playlistActions.fillPlaylist(files);
+				});
 			}
 		}
 	));
@@ -31,7 +107,15 @@ app.controller('LibraryCtrl', function($scope) {
 	// This menu will pop up when the user right-clicks on a track
 	var trackMenu = new gui.Menu();
 	trackMenu.append(new gui.MenuItem({
-			label: 'Send to playlist',
+			label: 'Replace the playlist',
+			click: function() {
+				playlistActions.clear();
+				playlistActions.fillPlaylist([$scope.selectedTrack]);
+			}
+		}
+	));
+	trackMenu.append(new gui.MenuItem({
+			label: 'Add to playlist',
 			click: function() {
 				playlistActions.fillPlaylist([$scope.selectedTrack]);
 			}
@@ -56,6 +140,11 @@ app.controller('LibraryCtrl', function($scope) {
 		});
 	};
 
+	// This scope function will spawn the library menu on right click.
+	$scope.spawnLibraryMenu = function(event) {
+		libraryMenu.popup(event.x, event.y);
+	};
+
 	// This scope function will spawn the album menu on right click.
 	$scope.spawnAlbumMenu = function(event, tracks) {
 		$scope.selectedTrackList = tracks;
@@ -73,7 +162,6 @@ app.controller('LibraryCtrl', function($scope) {
 	$scope.searchFilter = function(obj) {
 		return $scope.searchInput != '' ? obj.name.match($scope.searchInput) : true;
 	}
-
 
 	mediaLibrary.getArtists(function(result) {
 		$scope.artists = result ? result : [];
