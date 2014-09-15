@@ -7,7 +7,7 @@ Ichigo is a multiplatform audio player written in HTML5 with custom audio librar
 Build instructions
 =============
 To build, you must first obtain following things:
-* node.js v0.10.x
+* node.js v0.10.x or v0.11.x
 * node-gyp
 * nw-gyp
 * VS2013 (On Windows)
@@ -18,8 +18,6 @@ And of course - ichigo-audio repository. Make sure to have one folder setup for 
 /myfolder/ichigo-player
 
 Once you have both repositories cloned and everything setup, you must obtain ffi (clone it from its repo into node_modules/ffi folder) and build it for nodewebkit. You can do this by executing:
-nw-gyp rebuild --target=0.8.6
+nw-gyp rebuild --target=0.10.4
 
 Don't forget to run the same command for every single module as well!
-
-In general - I'm a lazy motherfucker and I don't feel like making a proper readme. Bite me. Maybe I'll bother later.

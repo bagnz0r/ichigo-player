@@ -2,7 +2,7 @@ var initialized = false;
 app.controller('HomeCtrl', function($scope) {
 	if (!initialized) {
 
-		// Show "alpha dialog"
+		// Show "alpha version dialog"
 		setTimeout(function() {
 			$('#alpha-dialog').dialog({
 				width: 500,
@@ -23,6 +23,7 @@ app.controller('HomeCtrl', function($scope) {
 
 		// Initialize plugins.
 		util.getPluginFiles(function(files) {
+			console.log('Found ' + files.length + ' plugin(s)');
 			for (var i = 0; i < files.length; i++) {
 				console.log('Loading plugin ' + files[i]);
 				plugin.loadPluginAsset(files[i], 'js');
@@ -42,11 +43,14 @@ app.controller('HomeCtrl', function($scope) {
 			localStorage['currentTheme'] = 'default';
 		}
 		util.getThemeFolders(function(folders) {
+			console.log('Found ' + folders.length + ' theme(s)');
 			for (var i = 0; i < folders.length; i++) {
 				var theme = folders[i].replace('.theme', '');
 				themes.push(theme);
+				console.log('Loaded theme ' + theme);
 
 				if (localStorage['currentTheme'] == theme) {
+					console.log('Setting theme ' + theme);
 					util.reloadTheme(theme);
 				}
 			}

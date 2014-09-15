@@ -1,3 +1,5 @@
+var gui = require('nw.gui');
+var win = gui.Window.get();
 var app = angular.module('ichigo', ['ngRoute', 'ngCookies', 'ngAnimate']);
 
 //
@@ -31,6 +33,11 @@ var themes = [];
 var currentTrack = -1;
 
 //
+// Current playback mode (default, repeatPlaylist, repeatTrack, shuffle)
+//
+var playbackMode = 'default';
+
+//
 // Are we playing?
 //
 var playing = false;
@@ -39,6 +46,7 @@ var playing = false;
 // Is the app busy?
 //
 var busy = false;
+
 
  //   ____             __ _       
  //  / ___|___  _ __  / _(_) __ _ 

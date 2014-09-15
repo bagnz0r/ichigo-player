@@ -65,6 +65,8 @@ var lastfmPlugin = {
 			plugin.addPluginAction('onConfigure', lastfmPlugin.authenticate);
 			plugin.addPluginAction('onTrackBegin', lastfmPlugin.trackBegin);
 			plugin.addPluginAction('onTrackPositionUpdate', lastfmPlugin.trackPositionUpdate);
+
+			console.log('Last.fm plugin has been initialized');
 		}, 1000);
 	},
 
@@ -115,7 +117,7 @@ var lastfmPlugin = {
 			album: lastfmPlugin.track.tags.album == undefined ? '' : lastfmPlugin.track.tags.album
 		}, JSON.parse(localStorage[lastfmPlugin.scope + '.session']), {
 				success: function (data) {
-					console.log('Last.fm: Updated now playing ');
+					console.log('Last.fm: Updated now playing status');
 					console.log(data);
 				},
 				error: function (code, message) {
@@ -140,7 +142,7 @@ var lastfmPlugin = {
 				}
 			], JSON.parse(localStorage[lastfmPlugin.scope + '.session']), {
 				success: function (data) {
-					console.log('Last.fm: Scrobbled ');
+					console.log('Last.fm: Track scrobbled');
 					console.log(data);
 
 					lastfmPlugin.scrobbled = true;
@@ -153,5 +155,5 @@ var lastfmPlugin = {
 	}
 };
 
-console.log('Last.fm plugin created');
+console.log('Last.fm plugin has been loaded');
 plugin.addPluginAction('onInitialize', lastfmPlugin.initialize);

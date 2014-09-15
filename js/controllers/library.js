@@ -165,6 +165,8 @@ app.controller('LibraryCtrl', function($scope) {
 
 	mediaLibrary.getArtists(function(result) {
 		$scope.artists = result ? result : [];
+		console.log('Library: Loaded ' + $scope.artists.length + ' artists');
+		
 		for (var i = 0; i < $scope.artists.length; i++) {
 			setAlbums($scope.artists[i]);
 		}

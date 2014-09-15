@@ -123,6 +123,35 @@ a:hover, a.glob:hover {
   text-decoration: none;
 }
 
+#callout {
+  font-family: 'PT Sans Narrow';
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 40%;
+  height: 96px;
+  margin-left: -20%;
+  margin-top: -48px;
+  z-index: 9001;
+  display: none;
+  text-align: center;
+}
+#callout h1 {
+  font-size: 32px;
+  margin: 0 auto 4px auto;
+  padding: 0;
+}
+#callout p {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
 div.dialog {
   font-family: 'PT Sans Narrow';
 }
@@ -299,9 +328,10 @@ div.playback-controls #volume-control {
   float: right;
   width: 100px;
   margin-top: 8px;
+  margin-right: 4px;
 }
 div.playback-controls div.track-scroll {
-  margin: 4px 0;
+  margin: 8px 0;
   padding: 5px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

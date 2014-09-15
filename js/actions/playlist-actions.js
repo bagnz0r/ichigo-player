@@ -4,7 +4,7 @@ var playlistActions = {
 	// Skip forward to the next track
 	//
 	forward: function() {
-		if (currentTrack.index >= playlist.tracks.length || !playing) {
+		if (currentTrack >= (playlist.tracks.length - 1) || !playing) {
 			return false;
 		}
 
@@ -23,7 +23,7 @@ var playlistActions = {
 	// Skip backwards to the previous track
 	//
 	back: function() {
-		if (currentTrack.index == 0 || !playing) {
+		if (currentTrack == 0 || !playing) {
 			return false;
 		}
 
@@ -63,6 +63,8 @@ var playlistActions = {
 	playSelectedTrack: function(index) {
 		currentTrack = index;
 		playlistActions.playTrackAtCurrentIndex();
+
+		return true;
 	},
 
 	//
@@ -73,22 +75,36 @@ var playlistActions = {
 			playlistActions.stop();
 		}
 		playlist.tracks.splice(index, 1);
+
+		return true;
 	},
 
 	//
 	// Play/resume currently paused/prepared track
 	//
 	play: function() {
-		ichigoAudio.ig_play();
-		playing = true;
+		if (currentTrack != -1) {
+			ichigoAudio.ig_play();
+			playing = true;
+
+			return true;
+		}
+
+		return false;
 	},
 
 	//
 	// Pause the currently playing track
 	//
 	pause: function() {
-		ichigoAudio.ig_pause();
-		playing = false;
+		if (currentTrack != -1) {
+			ichigoAudio.ig_pause();
+			playing = false;
+
+			return true;
+		}
+
+		return false;
 	},
 
 	//
@@ -105,6 +121,8 @@ var playlistActions = {
 		ichigoAudio.ig_stop();
 		currentTrack = -1;
 		playing = false;
+
+		return true;
 	},
 
 	//
@@ -141,6 +159,8 @@ var playlistActions = {
 		for (var i in pluginActions.onTrackBegin) {
 			pluginActions.onTrackBegin[i](playlist.tracks[currentTrack]);
 		}
+
+		return true;
 	},
 
 	//
@@ -197,6 +217,8 @@ var playlistActions = {
 			label: 'Default',
 			tracks: []
 		};
+
+		return true;
 	},
 
 	//

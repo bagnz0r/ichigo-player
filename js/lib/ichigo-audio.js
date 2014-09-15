@@ -5,7 +5,7 @@ var ref = require('ref');
 var wchar_t = require('ref-wchar');
 var wchar_string = wchar_t.string;
 
-var ichigoAudio = ffi.Library('ichigo-audio.dll', {
+var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-audio.dylib', {
 
 	//
 	// Initializes the Ichigo Audio library
@@ -116,4 +116,5 @@ var ichigoAudio = ffi.Library('ichigo-audio.dll', {
 
 // Initialize device.
 // TODO: Allow user to choose device and sampling frequency.
-console.log('Init status: ' + ichigoAudio.ig_initialize(-1, 44100));
+console.log('Core library is in ' + (isWindowsRelease ? 'Windows' : 'OS X') + ' release mode');
+console.log('Core library initialization status: ' + ichigoAudio.ig_initialize(-1, 44100));

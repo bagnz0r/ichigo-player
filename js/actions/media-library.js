@@ -71,6 +71,8 @@ var mediaLibrary = {
 			tx.executeSql('DELETE FROM artists');
 			tx.executeSql('DELETE FROM albums');
 			tx.executeSql('DELETE FROM tracks');
+
+			util.showOsdCallout('Library', 'The library is now empty');
 		});
 	},
 

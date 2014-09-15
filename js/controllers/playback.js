@@ -50,7 +50,7 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 		}
 	});
 
-	// Set track position update.
+	// Track position update timer.
 	setInterval(function() {
 		if (ichigoAudio.ig_is_stream_active()) {
 			scrollElement.slider('option', 'disabled', false);
@@ -75,6 +75,8 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 		{
 			// Try to skip the track.
 			if (playing) {
+
+				// Set track as "listened" in the library... That is if it's in the library anyway.
 				if (playlist.tracks[currentTrack].libraryId) {
 					playlist.tracks[currentTrack].listened = true;
 					mediaLibrary.setTrackListened(playlist.tracks[currentTrack].libraryId, function(result) {
@@ -82,7 +84,30 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 					});
 				}
 
-				if (!playlistActions.forward()) {
+				// Skip the track in a proper way, as desired by the user.
+				
+				var result;
+				switch (playbackMode) {
+					case 'default':
+						result = playlistActions.forward();
+					break;
+					case 'repeatPlaylist':
+						if (currentTrack >= (playlist.tracks.length - 1)) {
+							currentTrack = 0;
+							result = playlistActions.playTrackAtCurrentIndex();
+						} else {
+							result = playlistActions.forward();
+						}
+					break;
+					case 'repeatTrack':
+						result = playlistActions.playSelectedTrack(currentTrack);
+					break;
+					case 'shuffle':
+						result = playlistActions.forwardRand();
+					break;
+				}
+
+				if (!result) {
 					playlistActions.stop();
 				}
 			}

@@ -1,12 +1,3 @@
-//  ____       _                          _           _               
- // / ___|  ___| |_ _   _ _ __   __      _(_)_ __   __| | _____      __
- // \___ \ / _ \ __| | | | '_ \  \ \ /\ / / | '_ \ / _` |/ _ \ \ /\ / /
- //  ___) |  __/ |_| |_| | |_) |  \ V  V /| | | | | (_| | (_) \ V  V / 
- // |____/ \___|\__|\__,_| .__/    \_/\_/ |_|_| |_|\__,_|\___/ \_/\_/  
- //                      |_|                                           
-
-var gui = require('nw.gui');
-var win = gui.Window.get();
 var menubar = new gui.Menu({ type: 'menubar' });
 
 
@@ -103,6 +94,8 @@ fileMenu.append(new gui.MenuItem({
 		click: function() {
 			if (busy) return;
 
+			util.showOsdCallout('By the way...', 'This feature *might* crap out.');
+
 			playlistActions.stop();
 			playlistActions.clear();
 			playlistActions.createFromFile();
@@ -113,6 +106,8 @@ fileMenu.append(new gui.MenuItem({
 		label: 'Save playlist',
 		click: function() {
 			if (busy) return;
+
+			util.showOsdCallout('Whoops', 'This feature is not implemented (but it will be)!');
 		}
 	}
 ));
@@ -129,10 +124,11 @@ fileMenu.append(new gui.MenuItem({ type: 'separator' }));
 fileMenu.append(new gui.MenuItem({
 		label: 'Exit',
 		click: function() {
-			if (busy) return;
+			win.close();
 		}
 	}
 ));
+
 
 
  // __     ___                                            
@@ -146,8 +142,10 @@ viewMenu.append(new gui.MenuItem({
 		click: function() {
 			if (busy) return;
 
+			util.showOsdCallout('By the way...', 'I know the equalizer is fucking ugly. I\'ll make it look nice at some point - don\'t worry. Please calm your tits.');
+
 			$('#equalizer-dialog').dialog({
-				width: 850,
+				width: 760,
 				height: 180,
 				modal: true,
 				resizable: false,
@@ -164,6 +162,16 @@ viewMenu.append(new gui.MenuItem({
 		label: 'Visualizations',
 		click: function() {
 			if (busy) return;
+
+			util.showOsdCallout('Whoops', 'This feature is not implemented (but it will be)!');
+		}
+	}
+));
+viewMenu.append(new gui.MenuItem({ type: 'separator' }));
+viewMenu.append(new gui.MenuItem({
+		label: 'Console/Development tools',
+		click: function() {
+			win.showDevTools();
 		}
 	}
 ));
@@ -231,6 +239,55 @@ playbackMenu.append(new gui.MenuItem({
 		}
 	}
 ));
+playbackMenu.append(new gui.MenuItem({ type: 'separator' }));
+
+var playbackOrderMenu = new gui.Menu();
+var defaultPlaybackOrder = new gui.MenuItem({
+		label: 'Default',
+		click: function() {
+			playbackMode = 'default';
+			util.showOsdCallout('Playback mode changed', 'Set to \"Default\"');
+		}
+	}
+);
+playbackOrderMenu.append(defaultPlaybackOrder);
+
+var repeatPlaylistPlaybackOrder = new gui.MenuItem({
+		label: 'Repeat (playlist)',
+		click: function() {
+			playbackMode = 'repeatPlaylist';
+			util.showOsdCallout('Playback mode changed', 'Set to \"Repeat (Playlist)\"');
+		}
+	}
+);
+playbackOrderMenu.append(repeatPlaylistPlaybackOrder);
+
+var repeatTrackPlaybackOrder = new gui.MenuItem({
+		label: 'Repeat (track)',
+		click: function() {
+			playbackMode = 'repeatTrack';
+			util.showOsdCallout('Playback mode changed', 'Set to \"Repeat (Track)\"');
+		}
+	}
+);
+playbackOrderMenu.append(repeatTrackPlaybackOrder);
+
+var shufflePlaybackOrder = new gui.MenuItem({
+		label: 'Shuffle',
+		click: function() {
+			playbackMode = 'shuffle';
+			util.showOsdCallout('Playback mode changed', 'Set to \"Shuffle\"');
+		}
+	}
+);
+playbackOrderMenu.append(shufflePlaybackOrder);
+
+playbackMenu.append(new gui.MenuItem({
+		label: 'Order',
+		submenu: playbackOrderMenu
+	}
+));
+
 
  //  _   _      _                                    
  // | | | | ___| |_ __    _ __ ___   ___ _ __  _   _ 

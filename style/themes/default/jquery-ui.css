@@ -2,8 +2,8 @@
   background: #fff !important;
   background-image: none !important;
   border: 1px solid #ddd !important;
-  border-radius: 2px !important;
-  width: 8px !important;
+  border-radius: 100% !important;
+  width: 24px !important;
   -moz-transition-property: background;
   -o-transition-property: background;
   -webkit-transition-property: background;
@@ -30,7 +30,7 @@
 
 .ui-slider {
   border: 1px solid #ddd !important;
-  border-radius: 2px !important;
+  border-radius: 10px !important;
 }
 
 .ui-dialog {
@@ -132,4 +132,13 @@
   z-index: 1;
   margin-left: 128px;
   padding: 0;
+}
+
+.playback-controls .ui-slider {
+  height: 8px !important;
+}
+
+.playback-controls .ui-slider-handle {
+  height: 16px !important;
+  width: 16px !important;
 }

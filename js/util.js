@@ -88,6 +88,19 @@ var util = {
 	},
 
 	//
+	// Shows the OSD "callout"
+	//
+	showOsdCallout: function(title, text) {
+		$('#callout h1').text(title);
+		$('#callout p').text(text);
+		$('#callout').fadeIn('fast', function() {
+			setTimeout(function() {
+				$('#callout').fadeOut('slow');
+			}, 2000);
+		});
+	},
+
+	//
 	// Parses tags in a provided file
 	//
 	parseTags: function(path) {
