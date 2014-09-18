@@ -369,6 +369,21 @@ div.playback-controls {
 		text-overflow: ellipsis;
 	}
 
+	canvas {
+		width: 96px;
+		height: 24px;
+
+		display: inline-block;
+
+		background: #fff;
+
+		border: 1px solid #ddd;
+		border-radius: 2px;
+
+		position: relative;
+		top: 7px;
+	}
+
 	#volume-control {
 		float: right;
 		width: 100px;

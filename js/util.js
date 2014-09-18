@@ -281,5 +281,12 @@ var util = {
 	//
 	getRandomInt: function(min, max) {
 		return Math.floor(Math.random() * (max - min)) + min;
+	},
+
+	//
+	// Clamps value.
+	//
+	clamp: function(num, min, max) {
+    	return num < min ? min : (num > max ? max : num);
 	}
 };

@@ -324,6 +324,16 @@ div.playback-controls div.track-info {
   margin: 0 8px;
   text-overflow: ellipsis;
 }
+div.playback-controls canvas {
+  width: 96px;
+  height: 24px;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  position: relative;
+  top: 7px;
+}
 div.playback-controls #volume-control {
   float: right;
   width: 100px;
