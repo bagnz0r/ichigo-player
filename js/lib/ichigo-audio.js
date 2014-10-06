@@ -3,6 +3,8 @@ var isWindowsRelease = true;
 var ffi = require('ffi');
 var ref = require('ref');
 var wchar_t = require('ref-wchar');
+
+// define the wchar_t type
 var wchar_string = wchar_t.string;
 
 var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-audio.dylib', {
@@ -101,19 +103,9 @@ var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-au
 	'ig_read_tag_from_file': ['string', [ isWindowsRelease ? wchar_string : 'string', 'string' ]],
 
 	//
-	// Grabs current stream's FFT data (up to 1024 values, or 2048 samples).
+	// Grabs current stream's FFT data average
 	//
-	// value_count: 128 || 256 || 512 || 1024
-	//
-	'ig_get_fft': ['float[]', [ 'int' ]],
-
-	//
-	// Grabs current stream's FFT data (up to 1024 values, or 2048 samples)
-	// and calculates an average.
-	//
-	// value_count: 128 || 256 || 512 || 1024
-	//
-	'ig_get_fft_avg': ['float', [ 'int' ]],
+	'ig_get_fft_avg': ['float', []],
 
 	//
 	// Enables the equalizer
