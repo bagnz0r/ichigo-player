@@ -9,5 +9,5 @@ app.controller('VisualizationCtrl', function ($scope) {
 			ctx.fillStyle = '#888';
 			ctx.fillRect(0, 12 - (12 * fft), 96, 12 * fft);
 		}
-	});
+	}, 33);
 });
