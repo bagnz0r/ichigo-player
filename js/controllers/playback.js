@@ -55,9 +55,6 @@ app.controller('PlaybackCtrl', function ($scope, $timeout) {
 		if (ichigoAudio.ig_is_stream_active()) {
 			scrollElement.slider('option', 'disabled', false);
 
-			var fft = ichigoAudio.ig_get_fft_avg();
-			console.log(fft);
-
 			$scope.$apply(function() {
 				var pos = Math.round(ichigoAudio.ig_get_pos());
 				var len = Math.round(ichigoAudio.ig_get_len());

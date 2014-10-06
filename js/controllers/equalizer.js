@@ -9,7 +9,7 @@ app.controller('EqualizerCtrl', function ($scope) {
 			max: 1500,
 			value: 0,
 			orientation: 'vertical',
-			slide: function (event, ui) {
+			change: function (event, ui) {
 				var freq = $(this).attr('data-frequency');
 				var id = $(this).attr('data-id');
 				var gain = ui.value/100;
@@ -33,9 +33,7 @@ app.controller('EqualizerCtrl', function ($scope) {
 	$scope.setEqualizerBands = function() {
 		for (var i = 1; i <= 18; i++) {
 			var band = $('#eq-band' + i);
-			console.log((presets[$scope.preset][(i-1)] * 100));
 			band.slider('value', (presets[$scope.preset][(i-1)] * 100));
-
 		}
 	}
 });
