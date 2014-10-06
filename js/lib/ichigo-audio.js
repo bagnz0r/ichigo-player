@@ -10,7 +10,17 @@ var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-au
 	//
 	// Initializes the Ichigo Audio library
 	//
-	'ig_initialize': ['bool', ['int', 'int']],
+	'ig_initialize': ['bool', [ 'int', 'int' ]],
+
+	//
+	// Returns count of available devices
+	//
+	'ig_get_device_count': ['int', []],
+
+	//
+	// Returns selected device name
+	//
+	'ig_get_device_name': ['string', [ 'int' ]],
 
 	//
 	// Creates an audio stream from file
@@ -50,7 +60,7 @@ var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-au
 	//
 	// Sets the stream position, must pass seconds
 	//
-	'ig_set_pos': ['void', ['double']],
+	'ig_set_pos': ['void', [ 'double' ]],
 
 	//
 	// Gets volume
@@ -60,7 +70,7 @@ var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-au
 	//
 	// Sets volume, value must be between 0 and 1
 	//
-	'ig_set_volume': ['void', ['float']],
+	'ig_set_volume': ['void', [ 'float' ]],
 
 	//
 	// Determines whether the stream is active or not
@@ -91,6 +101,21 @@ var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-au
 	'ig_read_tag_from_file': ['string', [ isWindowsRelease ? wchar_string : 'string', 'string' ]],
 
 	//
+	// Grabs current stream's FFT data (up to 1024 values, or 2048 samples).
+	//
+	// value_count: 128 || 256 || 512 || 1024
+	//
+	'ig_get_fft': ['float[]', [ 'int' ]],
+
+	//
+	// Grabs current stream's FFT data (up to 1024 values, or 2048 samples)
+	// and calculates an average.
+	//
+	// value_count: 128 || 256 || 512 || 1024
+	//
+	'ig_get_fft_avg': ['float', [ 'int' ]],
+
+	//
 	// Enables the equalizer
 	//
 	'ig_enable_equalizer': ['void', []],
@@ -110,7 +135,7 @@ var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-au
 	//
 	// Arguments: band, freq, gain
 	//
-	'ig_set_equalizer': ['void', ['int', 'float', 'float']]
+	'ig_set_equalizer': ['void', [ 'int', 'float', 'float' ]]
 	
 });
 
