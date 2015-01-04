@@ -256,5 +256,26 @@ var playlistActions = {
 
 			playlistActions.fillPlaylist(entries);
 		});
-	}
+	},
+
+	//
+	// Save playlist to file (M3U).
+	//
+	saveToFile: function() {
+		if (playlist.tracks.length < 1) return;
+
+		util.saveFile(function (path) {
+			var fs = require('fs');
+			var output = '';
+			for (var index in playlist.tracks) {
+				output += playlist.tracks[index].file + "\r\n";
+			}
+
+			fs.writeFile(path, output, function (err) {
+				if (err) {
+					util.showOsdCallout('Something went wrong', 'We could not save the playlist.\nPerhaps you don\'t have permissions to write\nto this location specifically?');
+				}
+			});
+		});
+	},
 };

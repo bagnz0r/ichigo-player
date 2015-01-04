@@ -231,7 +231,7 @@ div.dialog button {
   margin: 10px auto;
 }
 
-button, a.button {
+button, a.button, input[type="text"], select {
   background: #fff !important;
   color: #888 !important;
   margin: 0 !important;
@@ -261,12 +261,12 @@ button, a.button {
   -webkit-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
 }
-button:hover, a.button:hover {
+button:hover, a.button:hover, input[type="text"]:hover, select:hover {
   background: #ddd !important;
   color: #666 !important;
   border-color: #bbb !important;
 }
-button:active, a.button:active {
+button:active, a.button:active, input[type="text"]:active, select:active {
   background: #aaa !important;
   color: #fff !important;
 }
@@ -282,19 +282,19 @@ div.playback-controls {
   border-bottom: 1px solid #ddd;
 }
 div.playback-controls a {
-  color: #bbb;
+  color: #999;
   margin: 0;
-  padding: 4px 8px;
+  padding: 8px;
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   text-align: center;
   font-size: 14px;
   border: 1px solid #ddd;
-  border-radius: 3px;
+  border-radius: 100%;
   -moz-transition-property: background;
   -o-transition-property: background;
   -webkit-transition-property: background;
@@ -326,23 +326,22 @@ div.playback-controls div.track-info {
 }
 div.playback-controls canvas {
   width: 96px;
-  height: 24px;
+  height: 32px;
   display: inline-block;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 2px;
-  position: relative;
-  top: 7px;
+  position: absolute;
+  top: 9px;
 }
 div.playback-controls #volume-control {
   float: right;
   width: 100px;
   margin-top: 8px;
-  margin-right: 4px;
 }
 div.playback-controls div.track-scroll {
   margin: 8px 0;
-  padding: 5px;
+  padding: 1px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -537,7 +536,7 @@ div.playlist, div.plugins, div.themes {
 }
 div.playlist div.track, div.plugins div.track, div.themes div.track {
   margin: 1px 0;
-  padding: 6px 6px;
+  padding: 0 6px;
   background: #fff;
   color: #888;
   display: block;
@@ -581,7 +580,7 @@ div.playlist div.track:active, div.plugins div.track:active, div.themes div.trac
 div.playlist div.track div.track-number, div.plugins div.track div.track-number, div.themes div.track div.track-number {
   display: inline-block;
   font-family: 'PT Sans Narrow';
-  font-size: 46px;
+  font-size: 36px;
   margin-right: 10px;
 }
 div.playlist div.track div.track-info, div.plugins div.track div.track-info, div.themes div.track div.track-info {
@@ -589,12 +588,12 @@ div.playlist div.track div.track-info, div.plugins div.track div.track-info, div
 }
 div.playlist div.track div.track-info div.track-artist, div.plugins div.track div.track-info div.track-artist, div.themes div.track div.track-info div.track-artist {
   font-family: 'PT Sans Narrow';
-  font-size: 12px;
+  font-size: 11px;
   text-overflow: ellipsis;
 }
 div.playlist div.track div.track-info div.track-title, div.plugins div.track div.track-info div.track-title, div.themes div.track div.track-info div.track-title {
   font-family: 'PT Sans Narrow';
-  font-size: 20px;
+  font-size: 16px;
   text-overflow: ellipsis;
 }
 
@@ -688,3 +687,20 @@ div.content h3 {
   border-radius: 3px;
   padding: 4px;
 }
+#settings-tabs div.settings-row {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  padding: 4px;
+  margin-bottom: 2px;
+}
+#settings-tabs div.settings-row label {
+  display: block;
+  font-family: 'PT Sans Narrow';
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=style.css.map */

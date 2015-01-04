@@ -55,7 +55,7 @@ var lastfmPlugin = {
 			plugin.addPluginAction('onGetInfo', function() {
 				return {
 					'name': 'Last.fm Scrobbler',
-					'version': '1.1',
+					'version': '1.2',
 					'author': 'bagnz0r',
 					'url': 'http://github.com/bagnz0r',
 					'scope': lastfmPlugin.scope
@@ -91,7 +91,7 @@ var lastfmPlugin = {
 						token: data.token
 					}, {
 						success: function(data) {
-							localStorage[lastfmPlugin.scope + '.session'] = JSON.stringify(data.session);
+							util.setSettingsValue(lastfmPlugin.scope + '.session', JSON.stringify(data.session));
 							util.closeLoadingDialog();
 						},
 						error: function(code, message) {
@@ -115,7 +115,7 @@ var lastfmPlugin = {
 			artist: lastfmPlugin.track.tags.artist,
 			track: lastfmPlugin.track.tags.title,
 			album: lastfmPlugin.track.tags.album == undefined ? '' : lastfmPlugin.track.tags.album
-		}, JSON.parse(localStorage[lastfmPlugin.scope + '.session']), {
+		}, JSON.parse(util.getSettingsValue(lastfmPlugin.scope + '.session', null)), {
 				success: function (data) {
 					console.log('Last.fm: Updated now playing status');
 					console.log(data);
@@ -132,7 +132,7 @@ var lastfmPlugin = {
 		if (lastfmPlugin.track.tags.title == undefined || lastfmPlugin.track.tags.artist == undefined) return;
 
 		var percentage = pos / len * 100;
-		if (percentage > (localStorage.getItem(lastfmPlugin.scope + '.minimumScrobbleThreshold') || 50) && !lastfmPlugin.scrobbled) {
+		if (percentage > util.getSettingsValue(lastfmPlugin.scope + '.minimumScrobbleThreshold', 50) && !lastfmPlugin.scrobbled) {
 			lastfmPlugin.lastfm.track.scrobble([
 				{
 					artist: lastfmPlugin.track.tags.artist,
@@ -140,7 +140,7 @@ var lastfmPlugin = {
 					timestamp: lastfmPlugin.stamp,
 					album: lastfmPlugin.track.tags.album == undefined ? '' : lastfmPlugin.track.tags.album
 				}
-			], JSON.parse(localStorage[lastfmPlugin.scope + '.session']), {
+			], JSON.parse(util.getSettingsValue(lastfmPlugin.scope + '.session', null)), {
 				success: function (data) {
 					console.log('Last.fm: Track scrobbled');
 					console.log(data);

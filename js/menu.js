@@ -107,7 +107,7 @@ fileMenu.append(new gui.MenuItem({
 		click: function() {
 			if (busy) return;
 
-			util.showOsdCallout('Whoops', 'This feature is not implemented (but it will be)!');
+			playlistActions.saveToFile();
 		}
 	}
 ));
@@ -142,19 +142,7 @@ viewMenu.append(new gui.MenuItem({
 		click: function() {
 			if (busy) return;
 
-			util.showOsdCallout('By the way...', 'I know the equalizer is fucking ugly. I\'ll make it look nice at some point - don\'t worry. Please calm your tits.');
-
-			$('#equalizer-dialog').dialog({
-				width: 760,
-				height: 180,
-				modal: true,
-				resizable: false,
-				draggable: false
-			});
-
-			$('#equalizer-dialog button').click(function() {
-				$('#equalizer-dialog').dialog('close');
-			});
+			util.showOsdCallout('Sorry', 'The equalizer looks like shit right now and doesn\'t work right.\nI will work on it in v0.16.');
 		}
 	}
 ));

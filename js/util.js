@@ -7,7 +7,8 @@ var util = {
 	chooseFile: function(callback) {
 		util.chosen = false;
 
-		$('#file').removeAttr('nwdirectory'); // HACK!
+		$('#file').removeAttr('nwdirectory');
+		$('#file').removeAttr('nwsaveas');
 
 		var chooser = document.querySelector('#file');
 		chooser.addEventListener("change", function(evt) {
@@ -26,6 +27,9 @@ var util = {
 	chooseMultipleFiles: function(callback) {
 		util.chosen = false;
 
+		$('#file').removeAttr('nwdirectory');
+		$('#file').removeAttr('nwsaveas');
+
 		var chooser = document.querySelector('#file-multiple');
 		chooser.addEventListener("change", function(evt) {
 			if (this.value != '' && !util.chosen) {
@@ -43,7 +47,28 @@ var util = {
 	chooseFolder: function(callback) {
 		util.chosen = false;
 
-		$('#file').attr('nwdirectory', 'nwdirectory'); // HACK!
+		$('#file').removeAttr('nwsaveas');
+		$('#file').attr('nwdirectory', 'nwdirectory');
+
+		var chooser = document.querySelector('#file');
+		chooser.addEventListener("change", function(evt) {
+			if (this.value != '' && !util.chosen) {
+				util.chosen = true;
+				callback(this.value);
+			}
+		}, false);
+
+		chooser.click();
+	},
+
+	//
+	// File save dialog
+	//
+	saveFile: function(callback) {
+		util.chosen = false;
+
+		$('#file').removeAttr('nwdirectory');
+		$('#file').attr('nwsaveas', '');
 
 		var chooser = document.querySelector('#file');
 		chooser.addEventListener("change", function(evt) {
@@ -274,6 +299,23 @@ var util = {
 	reloadTheme: function(theme) {
 		$('#theme-style').attr('src', 'style/themes/' + theme + '/style.css', 'css');
 		$('#theme-jquery-ui').attr('src', 'style/themes/' + theme + '/jquery-ui.css', 'css');
+	},
+
+	//
+	// Get settings entry.
+	//
+	getSettingsValue: function(key, defaultValue) {
+		var settings = localStorage['settings'] != undefined ? JSON.parse(localStorage['settings']) : {};
+		return settings[key] != undefined ? settings[key] : defaultValue;
+	},
+
+	//
+	// Set settings entry.
+	//
+	setSettingsValue: function(key, value) {
+		var settings = localStorage['settings'] != undefined ? JSON.parse(localStorage['settings']) : {};
+		settings[key] = value;
+		localStorage['settings'] = JSON.stringify(settings);
 	},
 
 	//

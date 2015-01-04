@@ -1,28 +1,27 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\\\node.exe',
-1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli [ 'c:\\Program Files (x86)\\nodejs\\node.exe',
+1 verbose cli   'c:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'install',
-1 verbose cli   'ref-array' ]
-2 info using npm@1.4.23
-3 info using node@v0.10.31
-4 verbose node symlink C:\Program Files (x86)\nodejs\\node.exe
-5 error Error: Invalid version: "0.14"
-5 error     at Object.module.exports.fixVersionField (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\node_modules\normalize-package-data\lib\fixer.js:183:13)
-5 error     at C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\node_modules\normalize-package-data\lib\normalize.js:30:38
-5 error     at Array.forEach (native)
-5 error     at normalize (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\node_modules\normalize-package-data\lib\normalize.js:29:15)
-5 error     at final (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:342:33)
-5 error     at then (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:126:33)
-5 error     at C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:266:40
-5 error     at evalmachine.<anonymous>:271:14
-5 error     at C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:102:5
-5 error     at Object.oncomplete (evalmachine.<anonymous>:107:15)
-6 error If you need help, you may report this *entire* log,
-6 error including the npm and node versions, at:
-6 error     <http://github.com/npm/npm/issues>
-7 error System Windows_NT 6.2.9200
-8 error command "C:\\Program Files (x86)\\nodejs\\\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "ref-array"
-9 error cwd C:\Users\bagnz0r\Documents\Development\ichigo-player
-10 error node -v v0.10.31
-11 error npm -v 1.4.23
-12 verbose exit [ 1, true ]
+1 verbose cli   'nodewebkit@0.10.4' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.35
+4 error Error: Invalid version: "0.16"
+4 error     at Object.module.exports.fixVersionField (c:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\node_modules\normalize-package-data\lib\fixer.js:183:13)
+4 error     at c:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\node_modules\normalize-package-data\lib\normalize.js:30:38
+4 error     at Array.forEach (native)
+4 error     at normalize (c:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\node_modules\normalize-package-data\lib\normalize.js:29:15)
+4 error     at final (c:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:342:33)
+4 error     at then (c:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:126:33)
+4 error     at c:\Program Files (x86)\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:331:40
+4 error     at evalmachine.<anonymous>:272:14
+4 error     at c:\Program Files (x86)\nodejs\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:102:5
+4 error     at Object.oncomplete (evalmachine.<anonymous>:108:15)
+5 error If you need help, you may report this *entire* log,
+5 error including the npm and node versions, at:
+5 error     <http://github.com/npm/npm/issues>
+6 error System Windows_NT 6.2.9200
+7 error command "c:\\Program Files (x86)\\nodejs\\node.exe" "c:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "nodewebkit@0.10.4"
+8 error cwd F:\Dev\ichigo\ichigo-player
+9 error node -v v0.10.35
+10 error npm -v 1.4.28
+11 verbose exit [ 1, true ]

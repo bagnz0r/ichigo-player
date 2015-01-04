@@ -134,4 +134,4 @@ var ichigoAudio = ffi.Library(isWindowsRelease ? 'ichigo-audio.dll' : 'ichigo-au
 // Initialize device.
 // TODO: Allow user to choose device and sampling frequency.
 console.log('Core library is in ' + (isWindowsRelease ? 'Windows' : 'OS X') + ' release mode');
-console.log('Core library initialization status: ' + ichigoAudio.ig_initialize(-1, 44100));
+console.log('Core library initialization status: ' + ichigoAudio.ig_initialize(util.getSettingsValue('playback.device', -1), util.getSettingsValue('playback.frequency', 44100)));
