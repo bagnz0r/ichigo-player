@@ -1,21 +1,21 @@
 <div ng-controller="LibraryCtrl" ng-model="artists" class="library">
 	<div class="list" ng-hide="!artists.length">
 		<div class="artists">
-			<div ng-repeat="artist in artists | filter: searchFilter" ng-class="showAlbum ? 'artist selected' : 'artist'">
+			<div ng-repeat="artist in artists | filter: searchFilter" ng-class="showAlbum ? 'artist selected repeated-item' : 'artist repeated-item'">
 				<div class="chevrons">
 					<i class="fa fa-chevron-right" ng-hide="showAlbum"></i>
 					<i class="fa fa-chevron-down" ng-hide="!showAlbum"></i>
 				</div>
 				<span ng-click="showAlbum = showAlbum ? false : true" ng-right-click="spawnLibraryMenu($event);">{{ artist.name }}</span>
 				<div ng-hide="!showAlbum">
-					<div ng-class="showTracks ? 'album selected' : 'album'" ng-repeat="album in artist.albums">
+					<div ng-class="showTracks ? 'album selected repeated-item' : 'album repeated-item'" ng-repeat="album in artist.albums">
 						<div class="chevrons">
 							<i class="fa fa-chevron-right" ng-hide="showTracks"></i>
 							<i class="fa fa-chevron-down" ng-hide="!showTracks"></i>
 						</div>
 						<span ng-click="showTracks = showTracks ? false : true; setTracks(album)" ng-right-click="setTracks(album); spawnAlbumMenu($event, album.tracks);">{{ album.title }}</span>
 						<div ng-hide="!showTracks">
-							<div class="track" ng-repeat="track in album.tracks" ng-class="track.listened ? '' : 'notListened'">
+							<div class="track" ng-repeat="track in album.tracks" ng-class="track.listened ? 'repeated-item' : 'notListened repeated-item'">
 								<span ng-click="showTracks = showTracks ? false : true" ng-right-click="spawnTrackMenu($event, track.path);">{{ track.track_number != undefined ? track.track_number + '. ': '' }}{{ track.title }}</span>
 							</div>
 						</div>

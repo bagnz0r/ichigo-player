@@ -4,7 +4,7 @@ app.controller('VisualizationCtrl', function ($scope) {
 
 	var w = 96;
 	var h = 32;
-	var sz = 2;
+	var sz = 1;
 
 	var histogram = [];
 
@@ -25,5 +25,5 @@ app.controller('VisualizationCtrl', function ($scope) {
 				ctx.fillRect(i * sz, util.clamp(h - (h / 2) - (avg * (h + 6)), 1, h), sz, util.clamp((avg * (h + 6) * 2), 1, h));
 			}
 		}
-	}, 10);
+	}, 14);
 });
