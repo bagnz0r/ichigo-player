@@ -1,11 +1,11 @@
 app.controller('LibraryCtrl', function($scope) {
-	// height hack
-	var heightHack = function() { 
+	var sizeHack = function() { 
 		$('aside.library').css('height', $('body').height() - 78); 
+		$('aside.library .filter').css('width', $('aside.library').width());
 	};
-	heightHack();
+	sizeHack();
 	$(window).resize(function() {
-		heightHack();
+		sizeHack();
 	});
 
 	$scope.selectedTrackList = -1;
@@ -70,7 +70,6 @@ app.controller('LibraryCtrl', function($scope) {
 		if ($scope.selectedTrackList) {
 			var files = [];
 			for (var i = 0; i < $scope.selectedTrackList.length; i++) {
-				console.log($scope.selectedTrackList[i]);
 				files[i] = {
 					'libraryId': $scope.selectedTrackList[i].id,
 					'path': $scope.selectedTrackList[i].path,

@@ -142,7 +142,15 @@ viewMenu.append(new gui.MenuItem({
 		click: function() {
 			if (busy) return;
 
-			util.showOsdCallout('Sorry', 'The equalizer looks like shit right now and doesn\'t work right.\nI will work on it in v0.16.');
+			$('#equalizer-dialog').dialog({
+				width: 760,
+				height: 180,
+				resizable: false
+			});
+
+			$('#equalizer-dialog .close').click(function() {
+				$('#equalizer-dialog').dialog('close');
+			});
 		}
 	}
 ));

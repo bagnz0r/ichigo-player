@@ -73,11 +73,7 @@
 	</div>
 
 	<select id="equalizer-preset" ng-model="preset" ng-change="setEqualizerBands()">
-		<option value="flat">Flat</option>
-		<option value="pop">Pop</option>
-		<option value="jazz">Jazz</option>
-		<option value="techno">Techno</option>
-		<option value="rock">Rock</option>
+		<option value="{{ key }}" ng-repeat="(key, value) in presets">{{ key }}</option>
 	</select>
 
 	<button class="close">Close</button>

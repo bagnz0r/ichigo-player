@@ -110,6 +110,8 @@ var util = {
 		busy = false;
 		
 		$('#loading-dialog').dialog('close');
+
+		util.setLoadingDialogStatus('Please wait...');
 	},
 
 	//
@@ -187,7 +189,6 @@ var util = {
 					file,
 					function(success) {
 						if (i >= (files.length - 1)) {
-							util.setLoadingDialogStatus('Please wait...');
 							util.closeLoadingDialog();
 						} else {
 							setTimeout(next, 50);

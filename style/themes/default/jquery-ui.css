@@ -28,6 +28,10 @@
   outline: none !important;
 }
 
+.ui-slider-vertical .ui-slider-handle {
+  padding-right: 3px;
+}
+
 .ui-slider {
   border: 1px solid #ddd !important;
   border-radius: 10px !important;

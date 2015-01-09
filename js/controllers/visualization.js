@@ -2,11 +2,16 @@ app.controller('VisualizationCtrl', function ($scope) {
 	var canvas = document.getElementById('visualization');
 	var ctx = canvas.getContext('2d');
 
-	var w = 96;
+	var w = 128;
 	var h = 32;
 	var sz = 1;
 
 	var histogram = [];
+
+	// Fill histogram with dummy data.
+	for (var i = 0; i < Math.floor(w / sz); i++) {
+		histogram.push(0.0025);
+	}
 
 	// Track position update timer.
 	setInterval(function() {
@@ -25,5 +30,5 @@ app.controller('VisualizationCtrl', function ($scope) {
 				ctx.fillRect(i * sz, util.clamp(h - (h / 2) - (avg * (h + 6)), 1, h), sz, util.clamp((avg * (h + 6) * 2), 1, h));
 			}
 		}
-	}, 14);
+	}, 16);
 });

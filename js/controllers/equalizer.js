@@ -1,6 +1,13 @@
 app.controller('EqualizerCtrl', function ($scope) {
 	ichigoAudio.ig_enable_equalizer();
 
+	$scope.presets = {
+		'Flat': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		'Mid cut': [1.06, 0, -0.9, -2.09, -2.67, -3.24, -3.76, -3.76, -2.37, -2.37, -0.91, 0, 1.45, 2.54, 3.96, 5.17, 5.17, 3.96],
+		'For bassheads': [4.78, 2.88, 1.48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		'Megan Threinor preset': [9, 9, 9, 7.5, 5.5, 0, 0, 0, -3.5, -4.5, -6.5, -8, -8, -8, -8, -8, -8, -8]
+	};
+	
 	var bands = [];
 	for (var i = 1; i <= 18; i++) {
 		bands[i] = $('#eq-band' + i);
@@ -23,17 +30,12 @@ app.controller('EqualizerCtrl', function ($scope) {
 		bands[i].attr('data-id', i);
 	}
 
-	var presets = {
-		'flat': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		'rock': [1.06, 0, -0.9, -2.09, -2.67, -3.24, -3.76, -3.76, -2.37, -2.37, -0.91, 0, 1.45, 2.54, 3.96, 5.17, 5.17, 3.96]
-	}
-
-	$scope.preset = 'flat';
+	$scope.preset = 'Flat';
 
 	$scope.setEqualizerBands = function() {
 		for (var i = 1; i <= 18; i++) {
 			var band = $('#eq-band' + i);
-			band.slider('value', (presets[$scope.preset][(i-1)] * 100));
+			band.slider('value', ($scope.presets[$scope.preset][(i-1)] * 100));
 		}
 	}
 });

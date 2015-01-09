@@ -169,12 +169,23 @@ var playlistActions = {
 	fillPlaylist: function(files) {
 		util.showLoadingDialog();
 
+		var tagCache = localStorage['tagCache'] != undefined ? JSON.parse(localStorage['tagCache']) : {};
+		var count = 0;
+		var finishFillingPlaylist = function() {
+			count++;
+
+			if (count == files.length) {
+				localStorage['tagCache'] = JSON.stringify(tagCache);
+				util.closeLoadingDialog();
+			}
+		};
+
 		setTimeout(function() {
-			var count = 0;
 			for (var i in files) {
 				if (typeof files[i] === 'object') {
 					var path = files[i].path.trim();
-					var tags = util.parseTags(path);
+					var tags = tagCache[path] != undefined ? tagCache[path] : util.parseTags(path);
+					tagCache[path] = tags;
 
 					playlist.tracks[playlist.tracks.length] = {
 						'file': path,
@@ -183,11 +194,7 @@ var playlistActions = {
 						'listened': files[i].listened
 					};
 
-					count++;
-
-					if (count == files.length) {
-						util.closeLoadingDialog();
-					}
+					finishFillingPlaylist();
 				} else {
 					var path = files[i].trim();
 					var tags = util.parseTags(path);
@@ -197,14 +204,10 @@ var playlistActions = {
 						'tags': tags
 					};
 
-					count++;
-
-					if (count == files.length) {
-						util.closeLoadingDialog();
-					}
+					finishFillingPlaylist();
 				}
 			}
-		}, 500);
+		}, 100);
 	},
 
 	//
