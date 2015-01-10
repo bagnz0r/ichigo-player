@@ -18,7 +18,7 @@ var playPauseShortcut = new gui.Shortcut({
 gui.App.registerGlobalHotKey(playPauseShortcut);
 
 var playPauseShortcutAlt = new gui.Shortcut({
-	key: isWindowsRelease ? 'Ctrl+Shift+I' : 'Alt+Shift+I',
+	key: 'Alt+Shift+I',
 	active : function() {
 		if (playing) {
 			if (playlistActions.pause()) {
@@ -52,7 +52,7 @@ gui.App.registerGlobalHotKey(nextTrackShortcut);
 
 
 var nextTrackShortcutAlt = new gui.Shortcut({
-	key: isWindowsRelease ? 'Ctrl+Shift+N' : 'Alt+Shift+N',
+	key: 'Alt+Shift+N',
 	active : function() {
 		if (playing) {
 			util.showOsdCallout('Next', 'Skipping to next track');
@@ -82,7 +82,7 @@ gui.App.registerGlobalHotKey(prevTrackShortcut);
 
 
 var prevTrackShortcutAlt = new gui.Shortcut({
-	key: isWindowsRelease ? 'Ctrl+Shift+B' : 'Alt+Shift+B',
+	key: 'Alt+Shift+B',
 	active : function() {
 		if (playing) {
 			util.showOsdCallout('Previous', 'Going back to previous track');

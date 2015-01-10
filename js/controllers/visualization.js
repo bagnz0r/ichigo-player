@@ -2,15 +2,15 @@ app.controller('VisualizationCtrl', function ($scope) {
 	var canvas = document.getElementById('visualization');
 	var ctx = canvas.getContext('2d');
 
-	var w = 128;
-	var h = 32;
-	var sz = 1;
+	var w = 256;
+	var h = 192;
+	var sz = 2;
 
 	var histogram = [];
 
 	// Fill histogram with dummy data.
 	for (var i = 0; i < Math.floor(w / sz); i++) {
-		histogram.push(0.0025);
+		histogram.push(0);
 	}
 
 	// Track position update timer.
@@ -27,8 +27,8 @@ app.controller('VisualizationCtrl', function ($scope) {
 			for (var i = 0; i < histogram.length; i++) {
 				var avg = histogram[i];
 				ctx.fillStyle = 'rgba(' + Math.round(util.clamp((avg * 3) * 255, 0, 255)) + ', 0, 100, 1)';
-				ctx.fillRect(i * sz, util.clamp(h - (h / 2) - (avg * (h + 6)), 1, h), sz, util.clamp((avg * (h + 6) * 2), 1, h));
+				ctx.fillRect(i * sz, util.clamp(h  - (avg * (h + 6) * 2), 1, h), sz, util.clamp((avg * (h + 6) * 2), 1, h));
 			}
 		}
-	}, 16);
+	}, 14);
 });
