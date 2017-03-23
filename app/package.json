@@ -1,0 +1,15 @@
+{
+  "name": "ichigo-player",
+  "productName": "Ichigo",
+  "version": "2.0.0",
+  "description": "Ichigo audio player",
+  "main": "./main.js",
+  "author": {
+    "name": "Filip P. Butkiewicz <bagnz0r>",
+    "email": "bagnohax@gmail.com",
+    "url": "https://github.com/bagnz0r"
+  },
+  "license": "GPL",
+  "dependencies": {
+  }
+}
