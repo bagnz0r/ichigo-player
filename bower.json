@@ -1,0 +1,24 @@
+{
+  "name": "ichigo-player",
+  "description": "Ichigo audio player",
+  "main": "main.js",
+  "authors": [
+    "[object Object]"
+  ],
+  "license": "GPL",
+  "keywords": [
+    "electron",
+    "boilerplate",
+    "react",
+    "react-router",
+    "flux",
+    "webpack",
+    "react-hot"
+  ],
+  "homepage": "https://github.com/bagnz0r/ichigo-player",
+  "private": true,
+  "dependencies": {
+    "WebFont-OpenSans": "webfont-opensans#^0.0.2",
+    "font-awesome": "fontawesome#^4.7.0"
+  }
+}

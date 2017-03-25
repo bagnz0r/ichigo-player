@@ -1,0 +1,27 @@
+div.playbackControlButton i {
+  margin: 8px 9px 8px 9px;
+}
+
+div.playbackControlButton {
+  display: inline-block;
+  margin-right: 2px;
+  width: 32px;
+  height: 32px;
+  background: #f0f0f0;
+  border: 2px solid #ccc;
+  border-radius: 100%;
+  font-size: 12px;
+  color: #aaa;
+  box-sizing: border-box;
+  transition: all .125s ease-in-out;
+}
+
+div.playbackControlButton:hover {
+  background: #fff;
+}
+
+div.playbackControlButton:active {
+  background: #aaa;
+  border: 2px solid #aaa;
+  color: #888;
+}
