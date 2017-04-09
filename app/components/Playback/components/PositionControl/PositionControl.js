@@ -8,15 +8,23 @@ export default class PositionControl extends Component {
     super(props);
 
     this.state = {
-      max: props.max,
       value: props.value
     };
+  }
+
+  onChange(val) {
+    this.setState({
+      value: val
+    });
   }
 
   render() {
     return (
       <div className={styles.positionControl}>
-        <TrackBar max={this.state.max} value={this.state.value} />
+        <TrackBar
+          value={this.state.value}
+          onChange={this.onChange.bind(this)}
+        />
       </div>
     );
   }
@@ -24,11 +32,9 @@ export default class PositionControl extends Component {
 }
 
 PositionControl.defaultProps = {
-  max: 0,
   value: 0
 };
 
 PositionControl.propTypes = {
-  max: React.PropTypes.number,
   value: React.PropTypes.number
 };

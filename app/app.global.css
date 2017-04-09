@@ -1,5 +1,6 @@
 @import '../bower_components/WebFont-OpenSans/css/stylesheet.css';
 @import '../bower_components/font-awesome/css/font-awesome.css';
+@import 'resources/fonts/fonts.css';
 
 html, body {
   width: 100%;
@@ -8,4 +9,7 @@ html, body {
   padding: 0;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
+  user-select: none;
+  outline: none;
+  cursor: default;
 }

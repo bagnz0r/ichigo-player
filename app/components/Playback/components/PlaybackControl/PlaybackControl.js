@@ -4,6 +4,20 @@ import styles from './PlaybackControl.css';
 
 export default class PlaybackControl extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      trackPosition: props.trackPosition
+    };
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      trackPosition: props.trackPosition
+    });
+  }
+
   onClickStop() {
     console.log('Stop clicked? Do something here cunt!');
   }
@@ -55,8 +69,21 @@ export default class PlaybackControl extends Component {
           icon="fa-question"
           onClick={this.onClickRandom.bind(this)}
         />
+        <div className={styles.playbackControlStatus}>
+          {this.state.trackPosition.current} / {this.state.trackPosition.max}
+        </div>
       </div>
     );
   }
-
 }
+
+PlaybackControl.defaultProps = {
+  trackPosition: {
+    current: '00:00:00',
+    max: '00:00:00'
+  }
+};
+
+PlaybackControl.propTypes = {
+  trackPosition: React.PropTypes.object
+};

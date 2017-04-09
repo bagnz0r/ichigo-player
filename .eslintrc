@@ -24,6 +24,7 @@
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/no-find-dom-node": "off",
     "react/no-string-refs": "off",
+    "react/forbid-prop-types": "off",
     "react/prefer-stateless-function": "off",
     "flowtype-errors/show-errors": "error",
     "class-methods-use-this": "off",

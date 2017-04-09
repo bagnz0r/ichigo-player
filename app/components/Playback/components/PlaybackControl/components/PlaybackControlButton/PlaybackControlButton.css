@@ -6,25 +6,36 @@ div.playbackControlButton i {
 
 div.playbackControlButton {
   display: inline-block;
+
   margin-right: 2px;
   width: 32px;
   height: 32px;
+  box-sizing: border-box;
+
   text-align: center;
+  font-size: 12px;
+
   background: var(--white);
   border: 2px solid var(--gray-2);
-  border-radius: 100%;
-  font-size: 12px;
   color: var(--gray-2);
-  box-sizing: border-box;
+
+  border-radius: 100%;
+
+  cursor: default;
+
   transition: all .125s linear;
 }
 
 div.playbackControlButton:hover {
-  border: 2px solid var(--black-0);
-  color: var(--black-0);
+  border: 2px solid var(--black-5);
+  color: var(--black-5);
+  background: var(--gray-5);
 }
 
 div.playbackControlButton:active {
   border: 2px solid var(--red-2);
   color: var(--red-2);
+  background: var(--white);
+
+  transform: scale(0.92);
 }

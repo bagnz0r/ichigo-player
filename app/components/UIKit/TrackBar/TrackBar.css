@@ -1,10 +1,11 @@
 @import '../../../resources/colors.css';
 
 div.trackBar, div.trackBarInner {
-  transition: height .125s ease-in-out,
-    margin-top .125s ease-in-out,
-    border-radius .125s ease-in-out;
-  cursor: default;
+  transition: height .2s ease-in-out,
+    margin-top .2s ease-in-out,
+    border-radius .2s ease-in-out,
+    width .125s linear;
+  cursor: pointer;
 }
 
 div.trackBar {

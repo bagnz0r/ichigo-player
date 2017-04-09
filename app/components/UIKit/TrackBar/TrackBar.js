@@ -8,26 +8,20 @@ export default class TrackBar extends Component {
     super(props);
 
     this.state = {
-      max: props.max,
       value: props.value,
       style: {
         width: '0%'
       },
-      dragEnabled: false
+      dragEnabled: false,
+      mouseEntered: false
     };
   }
 
   componentWillReceiveProps(props) {
-    let w = 0;
-    if (props.max && props.value) {
-      w = `${(props.value / props.max) * 100}%`;
-    }
-
     this.setState({
-      max: props.max,
       value: props.value,
       style: {
-        width: w
+        width: props.value ? `${Math.round(props.value * 100)}%` : 0
       }
     });
   }
@@ -45,6 +39,19 @@ export default class TrackBar extends Component {
     }
   }
 
+  onMouseEnter() {
+    this.setState({
+      mouseEntered: true
+    });
+  }
+
+  onMouseLeave() {
+    this.setState({
+      mouseEntered: false,
+      dragEnabled: false
+    });
+  }
+
   onDragEnable() {
     this.setState({
       dragEnabled: true
@@ -59,18 +66,19 @@ export default class TrackBar extends Component {
 
   setValues(offsetX) {
     const rect = ReactDOM.findDOMNode(this.refs.trackBar).getBoundingClientRect();
-    const val = offsetX / rect.width;
+    const val = Math.round((offsetX / rect.width) * 100) / 100;
 
     this.setState({
-      value: val,
-      style: {
-        width: `${val * 100}%`
-      }
+      value: val
     });
+
+    if (this.props.onChange) {
+      this.props.onChange(val);
+    }
   }
 
   render() {
-    const enlarged = this.state.dragEnabled ? styles.trackBarEnlarged : '';
+    const enlarged = this.state.mouseEntered ? styles.trackBarEnlarged : '';
 
     return (
       <div
@@ -79,7 +87,8 @@ export default class TrackBar extends Component {
         onMouseMove={this.onMouseMove.bind(this)}
         onMouseDown={this.onDragEnable.bind(this)}
         onMouseUp={this.onDragDisable.bind(this)}
-        onMouseLeave={this.onDragDisable.bind(this)}
+        onMouseEnter={this.onMouseEnter.bind(this)}
+        onMouseLeave={this.onMouseLeave.bind(this)}
         ref="trackBar"
       >
         <div
@@ -89,15 +98,14 @@ export default class TrackBar extends Component {
       </div>
     );
   }
-
 }
 
 TrackBar.defaultProps = {
-  max: 0,
-  value: 0
+  value: 0,
+  onChange: null
 };
 
 TrackBar.propTypes = {
-  max: React.PropTypes.number,
-  value: React.PropTypes.number
+  value: React.PropTypes.number,
+  onChange: React.PropTypes.func
 };
