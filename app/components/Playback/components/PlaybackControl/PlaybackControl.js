@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import PlaybackControlButton from './components/PlaybackControlButton';
 import styles from './PlaybackControl.css';

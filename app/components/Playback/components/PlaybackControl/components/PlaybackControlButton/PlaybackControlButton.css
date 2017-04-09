@@ -1,5 +1,7 @@
+@import '../../../../../../resources/colors.css';
+
 div.playbackControlButton i {
-  margin: 8px 9px 8px 9px;
+  margin-top: 8px;
 }
 
 div.playbackControlButton {
@@ -7,21 +9,22 @@ div.playbackControlButton {
   margin-right: 2px;
   width: 32px;
   height: 32px;
-  background: #f0f0f0;
-  border: 2px solid #ccc;
+  text-align: center;
+  background: var(--white);
+  border: 2px solid var(--gray-2);
   border-radius: 100%;
   font-size: 12px;
-  color: #aaa;
+  color: var(--gray-2);
   box-sizing: border-box;
-  transition: all .125s ease-in-out;
+  transition: all .125s linear;
 }
 
 div.playbackControlButton:hover {
-  background: #fff;
+  border: 2px solid var(--black-0);
+  color: var(--black-0);
 }
 
 div.playbackControlButton:active {
-  background: #aaa;
-  border: 2px solid #aaa;
-  color: #888;
+  border: 2px solid var(--red-2);
+  color: var(--red-2);
 }

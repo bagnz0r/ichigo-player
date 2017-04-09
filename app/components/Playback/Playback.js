@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import PlaybackControl from './components/PlaybackControl';
+import PositionControl from './components/PositionControl';
 import styles from './Playback.css';
 
 export default class Playback extends Component {
@@ -9,6 +10,7 @@ export default class Playback extends Component {
     return (
       <div className={styles.playback}>
         <PlaybackControl />
+        <PositionControl />
       </div>
     );
   }

@@ -1,0 +1,25 @@
+:root {
+  --black-0: #000;
+  --black-1: #111;
+  --black-2: #222;
+  --black-3: #333;
+  --black-4: #444;
+  --black-5: #555;
+  --gray-0: #888;
+  --gray-1: #aaa;
+  --gray-2: #bbb;
+  --gray-3: #ccc;
+  --gray-4: #ddd;
+  --gray-5: #eee;
+  --white: #fff;
+  --text-0: #000;
+  --text-1: #333;
+  --text-2: #555;
+  --text-3: #a22;
+  --red-0: #700;
+  --red-1: #900;
+  --red-2: #a00;
+  --red-3: #b00;
+  --red-4: #c00;
+  --red-5: #d00;
+}
