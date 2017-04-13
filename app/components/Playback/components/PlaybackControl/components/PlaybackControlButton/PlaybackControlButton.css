@@ -15,27 +15,27 @@ div.playbackControlButton {
   text-align: center;
   font-size: 12px;
 
-  background: var(--white);
-  border: 2px solid var(--gray-2);
-  color: var(--gray-2);
+  background: var(--base-0);
+  border: 2px solid var(--base-1);
+  color: var(--base-2);
 
   border-radius: 100%;
 
   cursor: default;
 
-  transition: all .125s linear;
+  transition: all .15s linear;
 }
 
 div.playbackControlButton:hover {
-  border: 2px solid var(--black-5);
-  color: var(--black-5);
-  background: var(--gray-5);
+  border: 2px solid var(--accent-0);
+  color: var(--base-0);
+  background: var(--accent-0);
 }
 
 div.playbackControlButton:active {
-  border: 2px solid var(--red-2);
-  color: var(--red-2);
-  background: var(--white);
+  border: 2px solid var(--accent-1);
+  color: var(--base-0);
+  background: var(--accent-1);
 
   transform: scale(0.92);
 }

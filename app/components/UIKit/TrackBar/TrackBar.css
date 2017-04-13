@@ -4,20 +4,21 @@ div.trackBar, div.trackBarInner {
   transition: height .2s ease-in-out,
     margin-top .2s ease-in-out,
     border-radius .2s ease-in-out,
-    width .125s linear;
+    width .125s linear,
+    background .125s linear;
   cursor: pointer;
 }
 
 div.trackBar {
   width: 100%;
   height: 8px;
-  background: var(--gray-5);
+  background: var(--base-0);
   border-radius: 8px;
 }
 
 div.trackBarInner {
   height: 8px;
-  background: var(--red-2);
+  background: var(--accent-0);
   border-radius: 8px;
 }
 
@@ -25,4 +26,8 @@ div.trackBarEnlarged {
   height: 16px;
   margin-top: -4px;
   border-radius: 16px;
+}
+
+div.trackBar div.trackBarEnlarged {
+  background: var(--accent-1);
 }
