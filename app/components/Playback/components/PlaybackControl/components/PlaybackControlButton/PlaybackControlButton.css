@@ -15,9 +15,9 @@ div.playbackControlButton {
   text-align: center;
   font-size: 12px;
 
-  background: var(--base-0);
-  border: 2px solid var(--base-1);
-  color: var(--base-2);
+  background: var(--base-2);
+  border: 2px solid var(--base-3);
+  color: var(--base-5);
 
   border-radius: 100%;
 
@@ -27,15 +27,15 @@ div.playbackControlButton {
 }
 
 div.playbackControlButton:hover {
-  border: 2px solid var(--accent-0);
+  border: 2px solid var(--accent-6);
   color: var(--base-0);
-  background: var(--accent-0);
+  background: var(--accent-6);
 }
 
 div.playbackControlButton:active {
-  border: 2px solid var(--accent-1);
+  border: 2px solid var(--accent-8);
   color: var(--base-0);
-  background: var(--accent-1);
+  background: var(--accent-8);
 
   transform: scale(0.92);
 }

@@ -1,7 +1,20 @@
 :root {
-  --base-0: #ecf0f1;
-  --base-1: #bdc3c7;
-  --base-2: #7f8c8d;
-  --accent-0: #c0392b;
-  --accent-1: #e74c3c;
+  --base-0: #FAFAFA;
+  --base-1: #F5F5F5;
+  --base-2: #EEEEEE;
+  --base-3: #E0E0E0;
+  --base-4: #BDBDBD;
+  --base-5: #9E9E9E;
+  --base-6: #757575;
+  --base-7: #616161;
+  --base-8: #424242;
+  --accent-0: #FFEBEE;
+  --accent-1: #FFCDD2;
+  --accent-2: #EF9A9A;
+  --accent-3: #E57373;
+  --accent-4: #EF5350;
+  --accent-5: #F44336;
+  --accent-6: #E53935;
+  --accent-7: #D32F2F;
+  --accent-8: #C62828;
 }

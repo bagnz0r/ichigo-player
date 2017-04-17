@@ -12,13 +12,13 @@ div.trackBar, div.trackBarInner {
 div.trackBar {
   width: 100%;
   height: 8px;
-  background: var(--base-0);
+  background: var(--base-2);
   border-radius: 8px;
 }
 
 div.trackBarInner {
   height: 8px;
-  background: var(--accent-0);
+  background: var(--accent-6);
   border-radius: 8px;
 }
 
@@ -29,5 +29,5 @@ div.trackBarEnlarged {
 }
 
 div.trackBar div.trackBarEnlarged {
-  background: var(--accent-1);
+  background: var(--accent-8);
 }
