@@ -1,9 +1,9 @@
-div.playbackControl {
+.playbackControl {
   padding: 8px;
   box-sizing: border-box;
 }
 
-div.playbackControlStatus {
+.playbackControlStatus {
   float: right;
   margin-top: 2px;
   

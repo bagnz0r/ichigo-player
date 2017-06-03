@@ -1,10 +1,10 @@
 @import '../../../../../../resources/colors.css';
 
-div.playbackControlButton i {
+.playbackControlButton i {
   margin-top: 8px;
 }
 
-div.playbackControlButton {
+.playbackControlButton {
   display: inline-block;
 
   margin-right: 2px;
@@ -26,13 +26,13 @@ div.playbackControlButton {
   transition: all .15s linear;
 }
 
-div.playbackControlButton:hover {
+.playbackControlButton:hover {
   border: 2px solid var(--accent-6);
   color: var(--base-0);
   background: var(--accent-6);
 }
 
-div.playbackControlButton:active {
+.playbackControlButton:active {
   border: 2px solid var(--accent-8);
   color: var(--base-0);
   background: var(--accent-8);

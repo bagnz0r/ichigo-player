@@ -1,6 +1,6 @@
 @import '../../../resources/colors.css';
 
-div.trackBar, div.trackBarInner {
+.trackBar, .trackBarInner {
   transition: height .2s ease-in-out,
     margin-top .2s ease-in-out,
     border-radius .2s ease-in-out,
@@ -9,25 +9,25 @@ div.trackBar, div.trackBarInner {
   cursor: pointer;
 }
 
-div.trackBar {
+.trackBar {
   width: 100%;
   height: 8px;
   background: var(--base-2);
   border-radius: 8px;
 }
 
-div.trackBarInner {
+.trackBarInner {
   height: 8px;
   background: var(--accent-6);
   border-radius: 8px;
 }
 
-div.trackBarEnlarged {
+iv.trackBarEnlarged {
   height: 16px;
   margin-top: -4px;
   border-radius: 16px;
 }
 
-div.trackBar div.trackBarEnlarged {
+.trackBar .trackBarEnlarged {
   background: var(--accent-8);
 }
