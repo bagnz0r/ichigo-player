@@ -176,6 +176,7 @@
   },
   "dependencies": {
     "bower": "^1.8.0",
+    "classnames": "^2.2.5",
     "electron-debug": "^1.1.0",
     "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",

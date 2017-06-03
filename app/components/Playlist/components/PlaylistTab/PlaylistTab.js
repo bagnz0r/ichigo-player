@@ -6,7 +6,7 @@ import styles from './PlaylistTab.css';
 class PlaylistTab extends Component {
 
   onClick() {
-    this.props.onClick(this.props.id);
+    this.props.onClick(this.props.key);
   }
 
   render() {
@@ -31,15 +31,16 @@ class PlaylistTab extends Component {
 }
 
 PlaylistTab.defaultProps = {
+  isActive: false,
   onClick: () => {
     console.warn('Event unhandled: PlaylistTab onClick');
   }
 }
 
 PlaylistTab.propTypes = {
-  id: React.PropTypes.string.isRequired,
+  key: React.PropTypes.string.isRequired,
   label: React.PropTypes.string.isRequired,
-  isActive: React.PropTypes.bool.isRequired,
+  isActive: React.PropTypes.bool,
   onClick: React.PropTypes.func,
 };
 

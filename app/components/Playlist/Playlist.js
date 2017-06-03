@@ -8,22 +8,24 @@ export default class Playlist extends Component {
     super(props);
 
     this.state = {
-      activeTabId: null
+      activeTabKey: null
     };
   }
 
-  onTabClick(id) {
+  onTabClick(key) {
     this.setState({
-      activeTabId: id
+      activeTabKey: key
     });
   }
 
   render() {
-    const playlistTabs = this.children.map((child, key) => {
+    const playlistTabs = this.props.children.map((child, key) => {
       return (
         <PlaylistTab
+          key={child.props.key}
+          label={child.props.label}
           onClick={this.onTabClick.bind(this)}
-          isActive={this.state.activeTabId === child.props.id}
+          isActive={this.state.activeTabId === child.props.key}
         />
       );
     });
