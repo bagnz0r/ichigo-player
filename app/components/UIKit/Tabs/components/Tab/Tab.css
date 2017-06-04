@@ -1,10 +1,10 @@
-@import '../../../resources/colors.css';
+@import '../../../../../resources/colors.css';
 
-.button {
+.tab {
   display: inline-block;
 
-  margin-right: 4px;
-  padding: 8px 16px;
+  margin-right: 2px;
+  padding: 4px 16px;
   box-sizing: border-box;
 
   text-align: center;
@@ -17,28 +17,26 @@
   background: var(--base-2);
 
   border: 1px solid var(--base-3);
-  border-radius: 3px;
-
-  cursor: default;
-  outline: none;
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
 
   transition: all .2s ease-in-out;
 }
 
-.button:hover {
-  border: 1px solid var(--accent-6);
+.tab:hover {
+  border-color: var(--accent-6);
   color: var(--base-0);
   background: var(--accent-6);
 }
 
-.button:active {
-  border: 1px solid var(--accent-8);
+.tab:active {
+  border-color: var(--accent-8);
   color: var(--base-0);
   background: var(--accent-8);
-
-  transform: scale(0.95);
 }
 
-.button i {
-  margin-right: 6px !important;
+.tabActive {
+  border-color: var(--accent-6);
+  background: var(--accent-6);
+  color: var(--base-0);
 }

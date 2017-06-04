@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import styles from './CheckBox.css';
 
 export default class CheckBox extends Component {
@@ -30,7 +31,7 @@ export default class CheckBox extends Component {
   }
 
   render() {
-    const classNames = `${styles.checkBox} ${this.state.checked ? styles.checkBoxChecked : ''} ${this.props.displayInline ? styles.checkBoxInline : ''}`;
+    const classNames = `${styles.checkBox} ${this.state.checked ? styles.checkBoxChecked : ''} ${this.props.isInline ? styles.checkBoxInline : ''}`;
 
     return (
       <div className={classNames} onClick={this.onClick.bind(this)}>
@@ -45,7 +46,7 @@ export default class CheckBox extends Component {
 CheckBox.defaultProps = {
   checked: false,
   label: null,
-  displayInline: false,
+  isInline: false,
   onChecked: null,
   onUnChecked: null
 };
@@ -53,7 +54,7 @@ CheckBox.defaultProps = {
 CheckBox.propTypes = {
   checked: React.PropTypes.bool,
   label: React.PropTypes.string,
-  displayInline: React.PropTypes.bool,
+  isInline: React.PropTypes.bool,
   onChecked: React.PropTypes.func,
   onUnChecked: React.PropTypes.func
 };
